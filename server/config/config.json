@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "rossgeesman",
+    "password": null,
+    "database": "cryptodex_development",
+    "host": "localhost",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "rossgeesman",
+    "password": null,
+    "database": "cryptodex_test",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "cryptodex_production",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  }
+}
