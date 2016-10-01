@@ -1,0 +1,9 @@
+
+
+const strategy = {
+  execute() {
+  	coins
+
+  }
+
+}
