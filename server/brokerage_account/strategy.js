@@ -2,8 +2,7 @@
 
 const strategy = {
   execute() {
-  	coins
-
-  }
+  	                    coins
+  },
 
 }
