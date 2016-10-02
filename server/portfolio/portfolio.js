@@ -1,3 +1,3 @@
 const portfolio = {
-  allocation: 'some number',
+  allocation: "some number"
 }

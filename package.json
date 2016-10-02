@@ -6,7 +6,7 @@
   "scripts": {
     "test": "N/A",
     "start": "nf start -p 3000",
-    "server": "API_PORT=3001 ./node_modules/.bin/babel-node /server/server.js"
+    "server": "API_PORT=3001 ./node_modules/.bin/babel-node server.js"
   },
   "repository": {
     "type": "git",
