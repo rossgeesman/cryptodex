@@ -1,17 +1,26 @@
-'use strict'
 console.log({ starting: true })
 
 import express from 'express'
-import bodyParser from 'body-parser'
-import { apolloExpress } from 'apollo-server'
+import cors from 'cors'
+import { apolloServer } from 'graphql-tools'
+import schema from './data/schema'
+import resolvers from './data/resolvers'
 
 const PORT = 3000
 
-const app = express()
+const graphQLServer = express().use('*', cors())
 
-app.use('/graphql', bodyParser.json(), apolloExpress({ schema: myGraphQLSchema }))
+graphQLServer.use('/graphql', apolloServer((_) => {
+  // FIXME: use passport etc. for authentication
+  return {
+    graphiql: true,
+    pretty: true,
+    schema,
+    resolvers
+  }
+}))
 
-
-app.listen(3000, () => {
-  console.log({ running: true })
-})
+// eslint-disable-next-line
+graphQLServer.listen(PORT, () => console.log(
+  `GraphQL Server is now running on http://localhost:${PORT}/graphql`
+))
