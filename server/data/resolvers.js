@@ -8,6 +8,14 @@ const resolveFunctions = {
         })
     }
   },
+  Mutation: {
+    create_user(_, {email, name, password}) {
+      return User.create({email: email, name: name, password: password})
+        .then((user) => {
+          return user
+        })
+    }
+  },
 }
 
 export default resolveFunctions
