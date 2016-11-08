@@ -25,6 +25,11 @@ module.exports = function (sequelize, DataTypes) {
         // associations can be defined here
       },
     },
+    instanceMethods: {
+      verifyPassword: function(password) {
+        return password === this.password
+      }
+    },
   })
   return User
 }

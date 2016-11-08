@@ -8,7 +8,7 @@ type User {
 }
 
 type Query {
-  user(email: String!): User
+  user(id: String!): User
 }
 
 type Mutation {

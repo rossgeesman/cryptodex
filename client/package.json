@@ -2,12 +2,18 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:3001/",
   "devDependencies": {
     "react-scripts": "0.4.3"
   },
   "dependencies": {
+    "apollo-client": "^0.4.20",
+    "graphql-tag": "^0.1.14",
     "react": "^15.3.2",
-    "react-dom": "^15.3.2"
+    "react-apollo": "^0.5.7",
+    "react-dom": "^15.3.2",
+    "react-router": "^2.8.1",
+    "validator": "^6.0.0"
   },
   "scripts": {
     "start": "react-scripts start",

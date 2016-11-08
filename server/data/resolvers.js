@@ -1,8 +1,8 @@
 const User = require('../models/').User
 const resolveFunctions = {
   Query: {
-    user(_, {email}) {
-      return User.findOne({where: {email: email }})
+    user(_, {id}) {
+      return User.findOne({where: {id: id }})
         .then((user) => {
           return user
         })
