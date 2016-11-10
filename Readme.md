@@ -20,3 +20,11 @@ npm install
 cd server
 npm install
 ```
+
+##Login
+Login is handled through a non-graphql endpoint at /login.
+Using curl:
+```
+curl -H "Content-type: application/json" "http://localhost:3001/login" -X POST -d '{"email":"User1@email.com", "password":"password"}'
+```
+
