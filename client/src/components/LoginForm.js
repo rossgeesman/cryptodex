@@ -1,15 +1,11 @@
 import React from 'react'
-//import { graphql } from 'react-apollo';
-import { browserHistory } from 'react-router';
-//import gql from 'graphql-tag';
-
-
+import { browserHistory } from 'react-router'
 import FormField from './FormField'
 
 class LoginForm extends React.Component {
 
   constructor() {
-    super();
+    super()
     this.state = {
       fields: {}
     }
@@ -18,7 +14,7 @@ class LoginForm extends React.Component {
   }
 
   onFormSubmit(evt) {
-    evt.preventDefault();
+    evt.preventDefault()
     const user = this.state.fields
     
     return fetch('/login', {
@@ -41,8 +37,8 @@ class LoginForm extends React.Component {
     })
   }
 
-  onInputChange({name, value}) {
-    const fields = this.state.fields;
+  onInputChange({ name, value }) {
+    const fields = this.state.fields
 
     fields[name] = value
 
@@ -72,7 +68,7 @@ class LoginForm extends React.Component {
             onChange={this.onInputChange}
           />
 
-          <input type='submit'/>
+          <input type='submit' />
         </form>
       </div>
     )
