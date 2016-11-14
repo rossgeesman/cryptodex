@@ -1,15 +1,8 @@
 import React from 'react'
 import { graphql } from 'react-apollo';
-import { browserHistory } from 'react-router';
 import gql from 'graphql-tag';
 
 class UserProfile extends React.Component {
-  constructor() {
-    super()
-  	
-
-  }
-
   render() {
     if (this.props.data.user) {
       return (

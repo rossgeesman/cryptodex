@@ -1,9 +1,8 @@
-import React from 'react';
+import React from 'react'
 
 class FormField extends React.Component {
   constructor(props) {
     super(props)
-    
     this.state = {
       value: this.props.value,
     }
@@ -11,16 +10,16 @@ class FormField extends React.Component {
   }
 
   componentWillReceiveProps(update) {
-    this.setState({ value: update.value });
+    this.setState({ value: update.value })
   }
 
   onChange(evt) {
-    const name = this.props.name;
-    const value = evt.target.value;
+    const name = this.props.name
+    const value = evt.target.value
 
-    this.setState({ value });
+    this.setState({ value })
 
-    this.props.onChange({ name, value });
+    this.props.onChange({ name, value })
   }
 
   render() {
@@ -32,15 +31,15 @@ class FormField extends React.Component {
           onChange={this.onChange}
         />
       </div>
-    );
+    )
   }
 }
 
 FormField.propTypes = {
-    placeholder: React.PropTypes.string,
-    name: React.PropTypes.string.isRequired,
-    value: React.PropTypes.string,
-    onChange: React.PropTypes.func.isRequired,
+  placeholder: React.PropTypes.string,
+  name: React.PropTypes.string.isRequired,
+  value: React.PropTypes.string,
+  onChange: React.PropTypes.func.isRequired,
 }
 
 export default FormField

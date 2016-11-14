@@ -3,10 +3,7 @@ import ReactDOM from 'react-dom'
 import ApolloClient, { createNetworkInterface } from 'apollo-client'
 import { ApolloProvider } from 'react-apollo'
 import { Router, browserHistory } from 'react-router'
-
 import routes from './routes/routes'
-
-
 import './index.css'
 
 const networkInterface = createNetworkInterface('/graphql')
