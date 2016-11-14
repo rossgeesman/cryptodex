@@ -1,5 +1,5 @@
 
-const coins = [
+const symbols = [
   'BTC',
   'BLK',
   'BTS',
@@ -38,4 +38,8 @@ const coins = [
   'XRP',
   'ZEC']
 
-export default coins
+const Coins = {
+  symbols: symbols
+}
+
+export default Coins
