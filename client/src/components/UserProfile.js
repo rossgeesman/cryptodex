@@ -1,8 +1,14 @@
 import React from 'react'
-import { graphql } from 'react-apollo';
-import gql from 'graphql-tag';
+import { graphql } from 'react-apollo'
+import gql from 'graphql-tag'
+import { browserHistory } from 'react-router'
 
 class UserProfile extends React.Component {
+
+  openNewOrder() {
+    browserHistory.push("/order")
+  }
+
   render() {
     if (this.props.data.user) {
       return (
@@ -12,6 +18,9 @@ class UserProfile extends React.Component {
           <p>{this.props.data.user.email}</p> 
           <h2>Name</h2>
           <p>{this.props.data.user.name}</p> 
+          <div>
+            <button onClick={this.openNewOrder}>Create Order</button>
+          </div>
         </div>
       ) } else {
       return (
