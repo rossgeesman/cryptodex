@@ -1,9 +1,18 @@
 import Coins from './coins'
 
-it('has 37 coins symbols', () => {
-  expect(Coins.symbols.length).toEqual(37)
-})
-
-it('has Bitcoin', () => {
-  expect(Coins.symbols).toContain("BTC")
+describe('Coins', () => {
+  for (let coin of Coins) {
+    it('has a name', () => {
+      expect(coin.name).not.toBeUndefined()
+      expect(typeof coin.name).toBe('string')
+    })  
+    it('has a symbol', () => {
+      expect(coin.symbol).not.toBeUndefined()
+      expect(typeof coin.symbol).toBe('string')
+    })
+    it('has an availability', () => {
+      expect(coin.available).not.toBeUndefined()
+      expect(typeof coin.available).toBe('boolean')
+    })
+  }
 })

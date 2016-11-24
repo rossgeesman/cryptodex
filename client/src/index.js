@@ -6,6 +6,7 @@ import { Router, browserHistory } from 'react-router'
 import routes from './routes/routes'
 import './index.css'
 
+
 const networkInterface = createNetworkInterface('/graphql')
 
 networkInterface.use([{
