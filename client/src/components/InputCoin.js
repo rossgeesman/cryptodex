@@ -7,7 +7,7 @@ class InputCoin extends React.Component {
   }
 
   handleChange(event) {
-  	this.props.updateInputAmt(event.target.value)
+    this.props.updateInputAmt(Number(event.target.value))
   }
 
   render() {

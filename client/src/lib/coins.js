@@ -1,48 +1,253 @@
 var _ = require('lodash')
+
 const coinList = {
-  BTC: { name: "Bitcoin", available: true, amt: 0 },
-  BCY: { name: "Bitcrystals", available: false, amt: 0},
-  BLK: { name: "Blackcoin", available: false, amt: 0 },
-  BTS: { name: "BitShares", available: false, amt: 0 },
-  CLAM: { name: "Clams", available: false, amt: 0 },
-  DASH: { name: "Dash", available: true, amt: 0 },
-  DGB: { name: "Digibyte", available: true, amt: 0 },
-  DGD: { name: "DigixDao", available: true, amt: 0 },
-  DOGE: { name: "Dogecoin", available: true, amt: 0 },
-  EMC: { name: "Emercoin", available: false, amt: 0 },
-  ETH: { name: "Ether", available: true, amt: 0 },
-  ETC: { name: "Ether Classic", available: false, amt: 0 },
-  FCT: { name: "Factoids", available: false, amt: 0 },
-  LBC: { name: "LBRY Credits", available: false, amt: 0 },
-  LSK: { name: "Lisk", available: false, amt: 0 },
-  LTC: { name: "Litecoin", available: false, amt: 0 },
-  MAID: { name: "Maidsafe", available: false, amt: 0 },
-  MSC: { name: "Mastercoin", available: false, amt: 0 },
-  MONA: { name: "Monacoin", available: false, amt: 0 },
-  NMC: { name: "Namecoin", available: false, amt: 0 },
-  NVC: { name: "Novacoin", available: false, amt: 0 },
-  NBT: { name: "Nubits", available: false, amt: 0 },
-  NXT: { name: "Nxt", available: false, amt: 0 },
-  PPC: { name: "Peercoin", available: false, amt: 0 },
-  RDD: { name: "Reddcoin", available: false, amt: 0 },
-  REP: { name: "Augur", available: false, amt: 0 },
-  SDC: { name: "Shadowcash", available: false, amt: 0 },
-  SC: { ame: "Siacoin", available: false, amt: 0 },
-  SJCX: { name: "StorjcoinX", available: false, amt: 0 },
-  SNGL: { name: "SingularDTV", available: false, amt: 0 },
-  STAR: { name: "Startcoin", available: false, amt: 0 },
-  STEE: { name: "Steem", available: false, amt: 0 },
-  USDT: { name: "TetherUSD", available: false, amt: 0 },
-  VRC: { name: "Vericoin", available: false, amt: 0 },
-  VTC: { name: "Vertcoin", available: false, amt: 0 },
-  VOX: { name: "Voxels", available: false, amt: 0 },
-  XCP: { name: "Counterparty", available: false, amt: 0 },
-  XMR: { name: "Monero", available: false, amt: 0 },
-  XRP: { name: "Ripple", available: false, amt: 0 },
-  ZEC: { name: "Zcash", available: false, amt: 0 }
+  "BTC":{
+    "name":"Bitcoin",
+    "available":true,
+    "amt":0,
+    "checked":false,
+    "symbol":"BTC"
+  },
+  "BCY":{
+    "name":"Bitcrystals",
+    "available":false,
+    "amt":0,
+    "symbol":"BCY"
+  },
+  "BLK":{
+    "name":"Blackcoin",
+    "available":false,
+    "amt":0,
+    "symbol":"BLK"
+  },
+  "BTS":{
+    "name":"BitShares",
+    "available":false,
+    "amt":0,
+    "symbol":"BTS"
+  },
+  "CLAM":{
+    "name":"Clams",
+    "available":false,
+    "amt":0,
+    "symbol":"CLAM"
+  },
+  "DASH":{
+    "name":"Dash",
+    "available":true,
+    "amt":0,
+    "checked":false,
+    "symbol":"DASH"
+  },
+  "DGB":{
+    "name":"Digibyte",
+    "available":true,
+    "amt":0,
+    "checked":false,
+    "symbol":"DGB"
+  },
+  "DGD":{
+    "name":"DigixDao",
+    "available":true,
+    "amt":0,
+    "checked":false,
+    "symbol":"DGD"
+  },
+  "DOGE":{
+    "name":"Dogecoin",
+    "available":true,
+    "amt":0,
+    "checked":false,
+    "symbol":"DOGE"
+  },
+  "EMC":{
+    "name":"Emercoin",
+    "available":false,
+    "amt":0,
+    "symbol":"EMC"
+  },
+  "ETH":{
+    "name":"Ether",
+    "available":true,
+    "amt":0,
+    "checked":false,
+    "symbol":"ETH"
+  },
+  "ETC":{
+    "name":"Ether Classic",
+    "available":false,
+    "amt":0,
+    "symbol":"ETC"
+  },
+  "FCT":{
+    "name":"Factoids",
+    "available":false,
+    "amt":0,
+    "symbol":"FCT"
+  },
+  "LBC":{
+    "name":"LBRY Credits",
+    "available":false,
+    "amt":0,
+    "symbol":"LBC"
+  },
+  "LSK":{
+    "name":"Lisk",
+    "available":false,
+    "amt":0,
+    "symbol":"LSK"
+  },
+  "LTC":{
+    "name":"Litecoin",
+    "available":false,
+    "amt":0,
+    "symbol":"LTC"
+  },
+  "MAID":{
+    "name":"Maidsafe",
+    "available":false,
+    "amt":0,
+    "symbol":"MAID"
+  },
+  "MSC":{
+    "name":"Mastercoin",
+    "available":false,
+    "amt":0,
+    "symbol":"MSC"
+  },
+  "MONA":{
+    "name":"Monacoin",
+    "available":false,
+    "amt":0,
+    "symbol":"MONA"
+  },
+  "NMC":{
+    "name":"Namecoin",
+    "available":false,
+    "amt":0,
+    "symbol":"NMC"
+  },
+  "NVC":{
+    "name":"Novacoin",
+    "available":false,
+    "amt":0,
+    "symbol":"NVC"
+  },
+  "NBT":{
+    "name":"Nubits",
+    "available":false,
+    "amt":0,
+    "symbol":"NBT"
+  },
+  "NXT":{
+    "name":"Nxt",
+    "available":false,
+    "amt":0,
+    "symbol":"NXT"
+  },
+  "PPC":{
+    "name":"Peercoin",
+    "available":false,
+    "amt":0,
+    "symbol":"PPC"
+  },
+  "RDD":{
+    "name":"Reddcoin",
+    "available":false,
+    "amt":0,
+    "symbol":"RDD"
+  },
+  "REP":{
+    "name":"Augur",
+    "available":false,
+    "amt":0,
+    "symbol":"REP"
+  },
+  "SDC":{
+    "name":"Shadowcash",
+    "available":false,
+    "amt":0,
+    "symbol":"SDC"
+  },
+  "SC":{
+    "ame":"Siacoin",
+    "available":false,
+    "amt":0,
+    "symbol":"SC"
+  },
+  "SJCX":{
+    "name":"StorjcoinX",
+    "available":false,
+    "amt":0,
+    "symbol":"SJCX"
+  },
+  "SNGL":{
+    "name":"SingularDTV",
+    "available":false,
+    "amt":0,
+    "symbol":"SNGL"
+  },
+  "STAR":{
+    "name":"Startcoin",
+    "available":false,
+    "amt":0,
+    "symbol":"STAR"
+  },
+  "STEE":{
+    "name":"Steem",
+    "available":false,
+    "amt":0,
+    "symbol":"STEE"
+  },
+  "USDT":{
+    "name":"TetherUSD",
+    "available":false,
+    "amt":0,
+    "symbol":"USDT"
+  },
+  "VRC":{
+    "name":"Vericoin",
+    "available":false,
+    "amt":0,
+    "symbol":"VRC"
+  },
+  "VTC":{
+    "name":"Vertcoin",
+    "available":false,
+    "amt":0,
+    "symbol":"VTC"
+  },
+  "VOX":{
+    "name":"Voxels",
+    "available":false,
+    "amt":0,
+    "symbol":"VOX"
+  },
+  "XCP":{
+    "name":"Counterparty",
+    "available":false,
+    "amt":0,
+    "symbol":"XCP"
+  },
+  "XMR":{
+    "name":"Monero",
+    "available":false,
+    "amt":0,
+    "symbol":"XMR"
+  },
+  "XRP":{
+    "name":"Ripple",
+    "available":false,
+    "amt":0,
+    "symbol":"XRP"
+  },
+  "ZEC":{
+    "name":"Zcash",
+    "available":false,
+    "amt":0,
+    "symbol":"ZEC"
+  }
 }
-
-
 
 const Coins = {
   available: _.pickBy(coinList, function(value) {
@@ -54,4 +259,3 @@ const Coins = {
 
 
 export default Coins
-

@@ -7,10 +7,12 @@ var _ = require('lodash')
 class OrderPage extends React.Component {
   constructor(props) {
     super(props)
-    const coinsAvailable = _.mapValues(Coins.available, (c) => {return Object.assign(c, {checked: false})})
-    this.state = {toPurchase: coinsAvailable, inputAmt: 0}
+    this.state = {toPurchase: Coins.available, inputAmt: 0}
     this.updateOrder = this.updateOrder.bind(this)
     this.updateInputAmt = this.updateInputAmt.bind(this)
+    this.updateAmts = this.updateAmts.bind(this)
+    this.onFormSubmit = this.onFormSubmit.bind(this)
+    this.checked = this.checked.bind(this)
   }
 
   checked( ) {
@@ -18,9 +20,10 @@ class OrderPage extends React.Component {
   }
 
   updateAmts(amt) {
+    let count = this.checked().length
     return _.mapValues(this.state.toPurchase, function(c) {
       if (c.checked === true ) {
-        c.amt = amt
+        c.amt = amt / count
         return c
       } else {
         c.amt = 0
@@ -34,7 +37,7 @@ class OrderPage extends React.Component {
     order[updatedCoin].checked = ! this.state.toPurchase[updatedCoin].checked
     this.setState({toPurchase: order})
     if (this.state.inputAmt > 0) {
-      let amt = this.state.inputAmt / this.checked().length
+      let amt = this.state.inputAmt
       this.setState({toPurchase: this.updateAmts(amt)})
     } else {
       return
@@ -42,8 +45,7 @@ class OrderPage extends React.Component {
   }
 
   updateInputAmt(amt) {
-    this.setState({inputAmt: amt})
-    this.setState({toPurchase: this.updateAmts(amt)})
+    this.setState({inputAmt: amt, toPurchase: this.updateAmts(amt)})
   }
 
   createCoinInput(coin) {
@@ -52,23 +54,25 @@ class OrderPage extends React.Component {
              label={coin.name}
              symbol={coin.symbol}
              amt={coin.amt}
-             coin={coin}
              handleCoinChange={this.updateOrder}
            />
   }
 
   coinInputList(coins) {
-    var res = Object.entries(coins).map(([prop, value]) => {
-      return _.merge(value, {symbol: prop } )
-    })
-    return res.map((coin) => this.createCoinInput(coin))
+    return _.values(coins).map((coin) => this.createCoinInput(coin))
+  }
+
+  onFormSubmit(evt) {
+    evt.preventDefault()
+    console.log(this)
   }
 
   render() {
   	return (
-      <form>
+      <form onSubmit={this.onFormSubmit}>
         {this.coinInputList(this.state.toPurchase)}
         <InputCoin updateInputAmt={this.updateInputAmt}/>
+        <input type="submit" value="Submit" />
       </form>
   	)
   }

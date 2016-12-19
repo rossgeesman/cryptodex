@@ -1,18 +1,15 @@
 import Coins from './coins'
 
 describe('Coins', () => {
-  for (let coin of Coins) {
-    it('has a name', () => {
-      expect(coin.name).not.toBeUndefined()
-      expect(typeof coin.name).toBe('string')
-    })  
-    it('has a symbol', () => {
-      expect(coin.symbol).not.toBeUndefined()
-      expect(typeof coin.symbol).toBe('string')
-    })
-    it('has an availability', () => {
-      expect(coin.available).not.toBeUndefined()
-      expect(typeof coin.available).toBe('boolean')
-    })
-  }
+  
+  it('has a symbol', () => {
+    expect(Coins.all['BTC']).toBeDefined()
+  })
+  
+  it('indicates a subjset of coins that are available', () => {
+    let available = Coins.available
+    let all = Coins.all
+    expect(Object.keys(all).length).toBeGreaterThan(Object.keys(available).length)
+  })
+  
 })

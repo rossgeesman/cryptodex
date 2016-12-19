@@ -16,7 +16,7 @@ class Coin extends React.Component {
   render() {
   	
   	return (
-      <div>
+      <div className={this.props.symbol}>
         <label>
           {this.props.amt} - {this.props.label}
           <input
