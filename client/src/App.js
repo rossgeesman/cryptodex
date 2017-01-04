@@ -1,5 +1,6 @@
 import React from 'react'
 import './App.css'
+import ModalContainer from './components/ModalContainer'
   
 function App({children}) {
   return (
@@ -8,6 +9,8 @@ function App({children}) {
         <h2>CryptoDex</h2>
       </div>
       {children}
+      <ModalContainer />
+
     </div>
   )
 }

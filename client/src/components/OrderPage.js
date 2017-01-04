@@ -1,7 +1,10 @@
 import React from 'react'
+import * as actions from '../data/actions'
+import {connect} from 'react-redux'
 import Coin from './Coin'
 import InputCoin from './InputCoin'
 import Coins from '../lib/coins'
+import store from '../data/store'
 var _ = require('lodash')
 
 class OrderPage extends React.Component {
@@ -64,7 +67,8 @@ class OrderPage extends React.Component {
 
   onFormSubmit(evt) {
     evt.preventDefault()
-    console.log(this)
+    store.dispatch(this.props.showModal('error'))
+    
   }
 
   render() {
@@ -78,4 +82,8 @@ class OrderPage extends React.Component {
   }
 }
 
-export default OrderPage
+OrderPage.propTypes = {
+  showModal: React.PropTypes.func
+}
+
+export default connect(state => state, () => actions)(OrderPage)
