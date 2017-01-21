@@ -1,33 +1,23 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 
-class Coin extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {isChecked: false}
-    this.handleChange = this.handleChange.bind(this)
+const Coin = ({coin, handleCoinChange}) => (
 
-  }
+  <div className={coin.symbol}>
+    <label>
+      {coin.amt} - {coin.name}
+      <input
+        type='checkbox'
+        value={coin.name}
+        onChange={handleCoinChange.bind(this, coin.symbol)}
+      />
+    </label>
+  </div>
+)
 
-  handleChange(event) {
-    this.setState({isChecked: ! this.state.isChecked })
-    this.props.handleCoinChange(this.props.symbol)
-  }
-
-  render() {
-  	
-  	return (
-      <div className={this.props.symbol}>
-        <label>
-          {this.props.amt} - {this.props.label}
-          <input
-            type='checkbox'
-            value={this.props.label}
-            onChange={this.handleChange}
-          />
-        </label>
-      </div>
-  	)
-  }
+Coin.propTypes = {
+  coin: PropTypes.object.isRequired,
+  handleCoinChange: PropTypes.func.isRequired
 }
+
 
 export default Coin

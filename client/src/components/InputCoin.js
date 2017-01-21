@@ -1,30 +1,20 @@
 import React from 'react'
 
-class InputCoin extends React.Component {
-  constructor(props) {
-  	super(props)
-  	this.handleChange = this.handleChange.bind(this)
-  }
-
-  handleChange(event) {
-    this.props.updateInputAmt(Number(event.target.value))
-  }
-
-  render() {
-  	return (
-  	  <div>	
-  	    <label>
-          <input
-            type="number"
-            onChange={this.handleChange}
-          />
-        </label>
-      </div>
-  	)
-  }
-}
+const InputCoin = ({updateInputAmt, value}) => (
+  <div>
+    <label>
+      <input
+        type="number"
+        className={'order-amt'}
+        value={value}
+        onChange={(e) => {updateInputAmt(Number(e.target.value))}}
+      />
+    </label>
+  </div>
+)
 
 InputCoin.propTypes = {
+  updateInputAmt: React.PropTypes.func,
   value: React.PropTypes.number
 }
 

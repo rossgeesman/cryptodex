@@ -4,6 +4,8 @@ import ApolloClient, { createNetworkInterface } from 'apollo-client'
 import { ApolloProvider } from 'react-apollo'
 import { Router, browserHistory } from 'react-router'
 import routes from './routes/routes'
+import { Provider } from 'react-redux'
+import store from './data/store'
 import './index.css'
 
 
@@ -26,9 +28,11 @@ const client = new ApolloClient({
 
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <Router history={browserHistory}>
-      {routes}
-    </Router>
+    <Provider store={store}>
+      <Router history={browserHistory}>
+        {routes}
+      </Router>
+    </Provider>
   </ApolloProvider>,
   document.getElementById('root')
 )

@@ -8,10 +8,7 @@ const updateOrder = jest.fn()
 describe('Coin', () => {
   const coinComponent = shallow(
   	  <Coin
-        key={btc.symbol}
-        label={btc.name}
-        symbol={btc.symbol}
-        amt={btc.amt}
+        coin={btc}
         handleCoinChange={updateOrder}
       />
   	)
