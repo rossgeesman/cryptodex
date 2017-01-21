@@ -18,7 +18,7 @@ class SignupForm extends React.Component {
   }
 
   onFormSubmit(evt) {
-    evt.preventDefault();
+    evt.preventDefault()
 
     const { submit } = this.props
     const user = this.state.fields

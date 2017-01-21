@@ -2,7 +2,7 @@ import Transaction from './transaction'
 
 const mockResponse = {someData: 123}
 fetch = jest.fn((url, options) => new Promise((resolve, reject) => {
-    resolve( { status: 201, json: () => (mockResponse) })
+    resolve( { status: 201, ok: true, json: () => (mockResponse) })
 }))
 
 describe('Transaction', () => {
