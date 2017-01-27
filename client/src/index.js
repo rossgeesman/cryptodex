@@ -6,6 +6,7 @@ import { Router, browserHistory } from 'react-router'
 import routes from './routes/routes'
 import { Provider } from 'react-redux'
 import store from './data/store'
+
 import './index.css'
 
 

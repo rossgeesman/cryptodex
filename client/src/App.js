@@ -1,6 +1,7 @@
 import React from 'react'
 import './App.css'
-  
+import FlashContainer from './containers/FlashContainer'
+
 function App({children}) {
   return (
     <div className='App'>
@@ -8,6 +9,8 @@ function App({children}) {
         <h2>CryptoDex</h2>
       </div>
       {children}
+      <FlashContainer/>
+
     </div>
   )
 }

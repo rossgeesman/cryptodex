@@ -4,22 +4,30 @@ import Coin from './Coin'
 var _ = require('lodash')
 
 
-const OrderForm = ({ value, coins, onUpdateAmt, onToggleCoin}) => (
+const OrderForm = ({ errors, value, coins, onUpdateAmt, onToggleCoin, onOrderSubmit}) => {
 
-  <form >
-    {
-      _.values(coins).map((coin) => {
-        return <Coin
-          key={coin.symbol}
-          coin={coin}
-          handleCoinChange={onToggleCoin}
-        />
-      })
-    }
-    <InputCoin updateInputAmt={onUpdateAmt} value={value}/>
-    <input type="submit" value="Submit" />
-  </form>
-)
+  const validate = (e) => {
+    e.preventDefault()
+    onOrderSubmit()
+    console.log(errors)
+  }
+  return (
+
+    <form onSubmit={(e) => { validate(e) }}>
+      {
+        _.values(coins).map((coin) => {
+          return <Coin
+            key={coin.symbol}
+            coin={coin}
+            handleCoinChange={onToggleCoin}
+          />
+        })
+      }
+      <InputCoin updateInputAmt={onUpdateAmt} value={value}/>
+      <input type="submit" value="Submit" />
+    </form>
+  )
+}
 
 OrderForm.propTypes = {
   coins: PropTypes.shape({
@@ -27,7 +35,8 @@ OrderForm.propTypes = {
     name: PropTypes.string,
     amt: PropTypes.number
   }).isRequired,
-  onToggleCoin: PropTypes.func
+  onToggleCoin: PropTypes.func,
+  onOrderSubmit: PropTypes.func
 }
 
 export default OrderForm
