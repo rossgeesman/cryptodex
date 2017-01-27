@@ -1,7 +1,7 @@
 import update from 'immutability-helper'
 import Coins from '../lib/coins'
 var _ = require('lodash')
-let initalState = {coins: Coins.available, inputAmt: 0}
+let initalState = {coins: Coins.available, inputAmt: 0, errors: []}
 
 function setAmt(coin, total) {
   let amt = coin.checked ? total : 0
@@ -32,6 +32,22 @@ function findPerCoinAmt(state) {
   return state.inputAmt / count
 }
 
+const hasCoinsSelected = (coins) => {
+  return _.filter(coins, (c) => { return c.checked }).length <= 0
+}
+
+function validate(order) {
+  let errors = []
+  if (hasCoinsSelected(order.coins))
+    errors.push("The order should have at least one asset selected.")
+  if (order.inputAmt <= 0)
+    errors.push("The order needs an input amount.")
+
+  return update(order, {
+    errors: {$set: errors}
+  })
+}
+
 
 const order = (state = initalState, action) => {
   switch (action.type) {
@@ -44,6 +60,14 @@ const order = (state = initalState, action) => {
       return setAmts(update(state, {
         inputAmt: {$set: action.total }
       }))
+    case 'VALIDATE_ORDER':
+      let ff = validate(state)
+      return ff
+    case 'DISMISS_FLASH':
+      let updated = state.errors.filter((err, index) => (index !== action.index))
+      return update(state, {
+        errors: {$set: updated}
+      })
   	default:
   	  return state
   }

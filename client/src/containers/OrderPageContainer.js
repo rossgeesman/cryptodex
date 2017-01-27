@@ -9,12 +9,14 @@ const OrderPage = (coins) => {
 
 const mapStateToProps = (state) => ({
   coins: OrderPage(state.order.coins),
-  value: OrderPage(state.order.inputAmt)
+  value: OrderPage(state.order.inputAmt),
+  errors: OrderPage(state.order.errors)
 })
 
 const mapDispatchToProps = ({
   onToggleCoin: actions.toggleCoin,
-  onUpdateAmt: actions.updateTotal
+  onUpdateAmt: actions.updateTotal,
+  onOrderSubmit: actions.validateOrder
 })
 
 const OrderPageContainer = connect(
