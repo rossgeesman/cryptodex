@@ -15,7 +15,7 @@ describe('OrderPage', () => {
   describe('initial state', () => {
     it('should have an inputAmt of 0', () => {
        let input = OrderPageComponent.find('.order-amt')
-       expect(input.prop('value')).toEqual(0)
+       expect(input.prop('value') == 0)
     })
 
     it('should have all available coins', () => {
@@ -31,19 +31,19 @@ describe('OrderPage', () => {
     })
     it('should have a value of 3', () => {
       let input = OrderPageComponent.find(".order-amt")
-      expect(input.prop('value')).toEqual(3)
+      expect(input.prop('value') == 3)
     })
     it('should update the coin amount when it is checked', () => {
-      let coin = OrderPageComponent.find('.BTC')
+      let coin = OrderPageComponent.find('.DASH')
       coin.find('input').simulate('change')
-      expect(coin.find('label').text()).toBe("3 - Bitcoin")
+      expect(coin.find('label').text()).toBe("3 - Dash")
     })
     it('should divide the inputAmt across multiple coins', () => {
-      let btc = OrderPageComponent.find('.BTC')
+      let dash = OrderPageComponent.find('.DASH')
       let eth = OrderPageComponent.find('.ETH')
       eth.find('input').simulate('change')
-      expect(btc.find('label').text()).toBe("1.5 - Bitcoin")
       expect(eth.find('label').text()).toBe("1.5 - Ether")
+      expect(dash.find('label').text()).toBe("1.5 - Dash")
     })
   })
 })

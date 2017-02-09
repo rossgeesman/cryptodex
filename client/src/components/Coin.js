@@ -1,17 +1,20 @@
 import React, { PropTypes } from 'react'
+import { FormGroup } from 'reactstrap'
 
 const Coin = ({coin, handleCoinChange}) => (
 
-  <div className={coin.symbol}>
+  <FormGroup className={coin.symbol}>
     <label>
       {coin.amt} - {coin.name}
-      <input
-        type='checkbox'
-        value={coin.name}
-        onChange={handleCoinChange.bind(this, coin.symbol)}
-      />
+      
+        <input
+          type='checkbox'
+          value={coin.name}
+          onChange={handleCoinChange.bind(this, coin.symbol)}
+        />
+      
     </label>
-  </div>
+  </FormGroup>
 )
 
 Coin.propTypes = {

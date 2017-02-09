@@ -10,7 +10,8 @@ const OrderPage = (coins) => {
 const mapStateToProps = (state) => ({
   coins: OrderPage(state.order.coins),
   value: OrderPage(state.order.inputAmt),
-  errors: OrderPage(state.order.errors)
+  errors: OrderPage(state.order.errors),
+  orderState: OrderPage(state.order.orderState)
 })
 
 const mapDispatchToProps = ({

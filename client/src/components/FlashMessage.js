@@ -1,13 +1,14 @@
 import React, { PropTypes } from 'react'
+import { Alert } from 'reactstrap'
 
-const FlashMessage = (props) => {
-  if (props.errors.length > 0) {
+const FlashMessage = ({errors, dismissFlash}) => {
+  if (errors.length > 0) {
   	return (
   	   <div>
-  	     {  props.errors.map((error, index) => { 
-  	  	      return <p key={index} onClick={(e) => { props.dismissFlash(index)} }>
+  	     {  errors.map((error, index) => { 
+  	  	      return <Alert color="warning" key={index} toggle={(e) => { dismissFlash(index)} }>
                        {error}
-                     </p>
+                     </Alert>
   	  	    })
   	     }
   	   </div>

@@ -1,7 +1,7 @@
 import update from 'immutability-helper'
 import Coins from '../lib/coins'
 var _ = require('lodash')
-let initalState = {coins: Coins.available, inputAmt: 0, errors: []}
+let initalState = {coins: Coins.available, orderState: 'requesting', inputAmt: '', errors: []}
 
 function setAmt(coin, total) {
   let amt = coin.checked ? total : 0
@@ -44,9 +44,12 @@ function validate(order) {
     errors.push("The order needs an input amount.")
 
   return update(order, {
-    errors: {$set: errors}
+    errors: {$set: errors},
+    orderState: {$set: errors.length === 0 ? 'requested' : 'requesting'}
   })
 }
+
+//Initiating Order
 
 
 const order = (state = initalState, action) => {
@@ -61,12 +64,24 @@ const order = (state = initalState, action) => {
         inputAmt: {$set: action.total }
       }))
     case 'VALIDATE_ORDER':
-      let ff = validate(state)
-      return ff
+      return validate(state)
     case 'DISMISS_FLASH':
       let updated = state.errors.filter((err, index) => (index !== action.index))
       return update(state, {
         errors: {$set: updated}
+      })
+    case 'ADD_PRICE':
+      return update(state, {
+        coins: {
+          [action.symbol]: {
+            price: { $set: action.price }
+          }
+        }
+      })
+    case 'INITIATE_ORDER':
+      console.log('thissworks')
+      return update(state, {
+        orderState: {$set: 'initiated'}
       })
   	default:
   	  return state
