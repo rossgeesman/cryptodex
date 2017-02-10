@@ -1,9 +1,10 @@
 import Wallet from "ethereumjs-wallet"
-const ripple = window.ripple
+import CoinKey from 'coinkey'
+import ci from 'coininfo'
 
 function setRipple() {
   if (process.env.NODE_ENV === 'test') {
-    const {RippleAPI} = require('ripple-lib')
+    const { RippleAPI } = require('ripple-lib')
     return RippleAPI
   
   } else {
@@ -18,6 +19,7 @@ const RippleAPI = setRipple()
 function ethAddress() {
   const wallet = Wallet.generate()
   return { 
+    sym: 'ETH',
   	address: wallet.getAddressString(), 
   	publicKey: wallet.getPublicKeyString(), 
   	privateKey: wallet.getPrivateKeyString()
@@ -26,17 +28,45 @@ function ethAddress() {
 
 function xrpAddress() {
   const api = new RippleAPI()
-  return api.generateAddress()
+  let addr = api.generateAddress()
+  return {
+    sym: 'XRP',
+    privateKey: addr.secret,
+    address: addr.address
+  }
+}
+
+function coinkeyAddress(symbol) {
+  let addr = CoinKey.createRandom(ci(symbol))
+  return {
+    sym: symbol,
+    privateKey: addr.privateKey.toString('hex'),
+    publicKey: addr.publicKey.toString('hex'), 
+    address: addr.publicAddress
+  }
+}
+
+const supportedCoins = {
+  'BLK': coinkeyAddress,
+  'DASH': coinkeyAddress,
+  'DOGE': coinkeyAddress,
+  'LTC': coinkeyAddress,
+  'NBT': coinkeyAddress,
+  'NMC': coinkeyAddress,
+  'PPC': coinkeyAddress,
+  'RDD': coinkeyAddress,
+  'ETH': ethAddress(),
+  'XRP': xrpAddress()
 }
 
 function generate(symbol) {
-  switch (symbol) {
-  	case 'ETH':
-  	  return ethAddress()
-  	case 'XRP':
-  	  return xrpAddress()
-  	default:
-  	  return null
+  if (symbol in  supportedCoins) {
+    let func = supportedCoins[symbol]
+    if (func === coinkeyAddress) {
+      return func(symbol)
+    } else {
+      return func
+    }
   }
 }
 

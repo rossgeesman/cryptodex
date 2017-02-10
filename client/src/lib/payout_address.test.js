@@ -16,14 +16,16 @@ describe('payoutAddress', () => {
       })
     })
 
-    describe('XRP', () => {
-      let address = payoutAddress.generate('XRP')
-      it('shoud return a secret', () => {
-        expect(address.secret).not.toBe('undefined')
-        
+    describe('BLK', () => {
+      let blkAddress = payoutAddress.generate('BLK')
+      it('should return address info as string', () => {
+        expect(typeof blkAddress.address).toBe('string')
       })
-      it('shoud return an address', () => {
-        expect(address.address).not.toBe('undefined')
+      it('should return publicKey string', () => {
+        expect(typeof blkAddress.publicKey).toBe('string')
+      })
+      it('should return privateKey string', () => {
+        expect(typeof blkAddress.privateKey).toBe('number')
       })
     })
   })
