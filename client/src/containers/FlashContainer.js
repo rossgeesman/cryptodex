@@ -4,7 +4,6 @@ import FlashMessage from '../components/FlashMessage'
 
 const errors = (appState) => {
   return appState.order.errors
-
 }
 
 const mapStateToProps = (state) => ({

@@ -3,7 +3,7 @@ var _ = require('lodash')
 const coinList = {
   "BTC":{
     "name":"Bitcoin",
-    "available":true,
+    "available":false,
     "amt":0,
     "checked":false,
     "symbol":"BTC"

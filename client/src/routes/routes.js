@@ -3,16 +3,13 @@ import React from 'react'
 import { Route } from 'react-router'
 
 import App from '../App'
-import SignupForm from '../components/SignupForm'
-import LoginForm from '../components/LoginForm'
-import UserProfile from '../components/UserProfile'
 import OrderPageContainer from '../containers/OrderPageContainer'
+import ConfirmationPageContainer from '../containers/ConfirmationPageContainer'
+
 
 export default (
-  <Route component={App} >
-    <Route path="/" component={SignupForm}/>
-    <Route path="/login" component={LoginForm}/>
-    <Route path="/user/:id" component={UserProfile}/>
-    <Route path="/order" component={OrderPageContainer}/>
+  <Route path="/" component={App} >
+    <Route path="order" component={OrderPageContainer}/>
+    <Route path="confirmation" component={ConfirmationPageContainer}/>
   </Route>
 )

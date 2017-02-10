@@ -14,7 +14,7 @@ describe('Coin', () => {
   	)
 
   it("displays a label", () => {
-    expect(coinComponent.text()).toEqual('2 - Bitcoin')
+    expect(coinComponent.find('label').text()).toEqual('2 - Bitcoin')
   })
 
   it("updates its parent when checked", () => {

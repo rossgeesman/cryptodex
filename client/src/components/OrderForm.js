@@ -1,39 +1,54 @@
 import React, { PropTypes } from 'react'
 import InputCoin from './InputCoin'
 import Coin from './Coin'
+import { Form, Button } from 'reactstrap'
+import { browserHistory } from 'react-router'
 var _ = require('lodash')
 
 
-const OrderForm = ({ errors, value, coins, onUpdateAmt, onToggleCoin, onOrderSubmit}) => {
+class OrderForm extends React.Component {
 
-  const validate = (e) => {
-    e.preventDefault()
-    onOrderSubmit()
-    console.log(errors)
+  constructor(props) {
+
+    super(props)
+    this.validate = this.validate.bind(this)
   }
-  return (
 
-    <form onSubmit={(e) => { validate(e) }}>
-      {
-        _.values(coins).map((coin) => {
-          return <Coin
-            key={coin.symbol}
-            coin={coin}
-            handleCoinChange={onToggleCoin}
-          />
-        })
-      }
-      <InputCoin updateInputAmt={onUpdateAmt} value={value}/>
-      <input type="submit" value="Submit" />
-    </form>
-  )
+  validate = (e) => {
+    e.preventDefault()
+    this.props.onOrderSubmit()
+  }
+
+  componentWillReceiveProps(newProps) {
+    if (newProps.orderState === 'requested')
+      browserHistory.push('confirmation')
+  }
+
+  render() {
+    return (
+
+      <Form onSubmit={(e) => { this.validate(e) }}>
+        {
+          _.values(this.props.coins).map((coin) => {
+            return <Coin
+              key={coin.symbol}
+              coin={coin}
+              handleCoinChange={this.props.onToggleCoin}
+            />
+          })
+        }
+        <InputCoin updateInputAmt={this.props.onUpdateAmt} value={this.props.value}/>
+        <Button>Submit</Button>
+      </Form>
+    )
+  }
 }
 
 OrderForm.propTypes = {
   coins: PropTypes.shape({
     symbol: PropTypes.string,
     name: PropTypes.string,
-    amt: PropTypes.number
+    amt: PropTypes.string
   }).isRequired,
   onToggleCoin: PropTypes.func,
   onOrderSubmit: PropTypes.func
