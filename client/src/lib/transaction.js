@@ -6,6 +6,10 @@ const REQUEST_TYPE = {
   open: {
     path: () => { return "/shift/" },
     method: POST
+  },
+  fixed: {
+    path: () => { return "/sendamount/" },
+    method: POST
   }, 
   getPrice: {
     path: () => {return "/marketinfo/" + REQUEST_TYPE.getPrice.pair }, 
@@ -18,6 +22,11 @@ const REQUEST_TYPE = {
 function open(outputAddr, coin) {
   let params = {withdrawal: outputAddr, pair: makePair(coin)}
   return makeRequest(REQUEST_TYPE.open, params)
+}
+
+function openFixed(outputAddr, coin, amt) {
+  let params = {withdrawal: outputAddr, pair: makePair(coin), amount: amt}
+  return makeRequest(REQUEST_TYPE.fixed, params)
 }
 
 function getPrice(coin) {
@@ -52,6 +61,7 @@ function makeRequest(type, params) {
 
 const Transaction = {
   open: open,
+  openFixed: openFixed,
   price: getPrice
 }
 

@@ -1,7 +1,8 @@
 import update from 'immutability-helper'
 import Coins from '../lib/coins'
+import payoutAddress from '../lib/payout_address'
 var _ = require('lodash')
-let initalState = {coins: Coins.available, orderState: 'requesting', inputAmt: '', errors: []}
+let initalState = {coins: Coins.available, orderProgress: 0, orderState: 'requesting', inputAmt: '', errors: []}
 
 function setAmt(coin, total) {
   let amt = coin.checked ? total : 0
@@ -10,20 +11,17 @@ function setAmt(coin, total) {
   })
 }
 
-function checkCoin(coins, key) {
-  return update(coins, {
-    [key]:
-      {checked:
-        {$apply: function(bool) {return !bool}}
-      }
-  })
-}
-
 function setAmts(state) {
   return update(state, {
     coins: {$set: _.mapValues(state.coins, (c) => {
       return setAmt(c, findPerCoinAmt(state))
     })}
+  })
+}
+
+function setAddress(coin) {
+  return update((coin), { 
+    $merge: {address: payoutAddress.generate(coin.symbol)}
   })
 }
 
@@ -49,16 +47,9 @@ function validate(order) {
   })
 }
 
-//Initiating Order
-
 
 const order = (state = initalState, action) => {
   switch (action.type) {
-  	case 'TOGGLE_COIN':
-      let toggledState = update(state, {
-        coins: {$set: checkCoin(state.coins, action.coin)}
-      })
-      return setAmts(toggledState)
     case 'UPDATE_TOTAL':
       return setAmts(update(state, {
         inputAmt: {$set: action.total }
@@ -79,9 +70,20 @@ const order = (state = initalState, action) => {
         }
       })
     case 'INITIATE_ORDER':
-      console.log('thissworks')
       return update(state, {
-        orderState: {$set: 'initiated'}
+        orderState: {$set: 'initiated'},
+        coins: {$set: _.mapValues(state.coins, (c) => {
+          return setAddress(c)
+        })}
+      })
+    case 'ADD_TXS':
+      return update(state, {
+        transactions: {$set: action.txs},
+        orderState: {$set: 'opened'}
+      })
+    case 'UPDATE_PROGRESS':
+      return update(state, {
+        orderProgress: {$set: action.amt}
       })
   	default:
   	  return state
