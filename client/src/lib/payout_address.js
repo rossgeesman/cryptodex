@@ -18,8 +18,7 @@ const RippleAPI = setRipple()
 
 function ethAddress() {
   const wallet = Wallet.generate()
-  return { 
-    sym: 'ETH',
+  return {
   	address: wallet.getAddressString(), 
   	publicKey: wallet.getPublicKeyString(), 
   	privateKey: wallet.getPrivateKeyString()
@@ -30,7 +29,6 @@ function xrpAddress() {
   const api = new RippleAPI()
   let addr = api.generateAddress()
   return {
-    sym: 'XRP',
     privateKey: addr.secret,
     address: addr.address
   }
@@ -39,7 +37,6 @@ function xrpAddress() {
 function coinkeyAddress(symbol) {
   let addr = CoinKey.createRandom(ci(symbol))
   return {
-    sym: symbol,
     privateKey: addr.privateKey.toString('hex'),
     publicKey: addr.publicKey.toString('hex'), 
     address: addr.publicAddress

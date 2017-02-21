@@ -1,15 +1,18 @@
 import React, { PropTypes } from 'react'
 import InputCoin from './InputCoin'
-import Coin from './Coin'
+const ProgressBar = require('react-progressbar.js')
+const Circle = ProgressBar.Circle
 import { Form, Button } from 'reactstrap'
-import { browserHistory } from 'react-router'
+import '../Order.css'
 var _ = require('lodash')
 
-
+var containerStyle = {
+    width: '300px',
+    height: '300px'
+}
 class OrderForm extends React.Component {
 
   constructor(props) {
-
     super(props)
     this.validate = this.validate.bind(this)
   }
@@ -20,38 +23,35 @@ class OrderForm extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
-    if (newProps.orderState === 'requested')
-      browserHistory.push('confirmation')
+    if (newProps.orderState === 'requested' && this.props.orderState === 'requesting') {
+      this.props.onValidOrder()
+    }
   }
 
   render() {
     return (
-
-      <Form onSubmit={(e) => { this.validate(e) }}>
-        {
-          _.values(this.props.coins).map((coin) => {
-            return <Coin
-              key={coin.symbol}
-              coin={coin}
-              handleCoinChange={this.props.onToggleCoin}
+      <div>
+        <Form onSubmit={(e) => { this.validate(e) }}>
+          <InputCoin updateInputAmt={this.props.onUpdateAmt} value={this.props.value}/>
+          <Button className="btnCircle" disabled={this.props.orderState === 'requesting' ? false : true}>
+            <Circle
+              progress={this.props.orderProgress}
+              text={(this.props.orderState === 'requesting') ? ( 'Buy Coins' ) : ( 'Requested' )}
+              initialAnimate={true}
+              containerStyle={containerStyle}
+              containerClassName={''} 
             />
-          })
-        }
-        <InputCoin updateInputAmt={this.props.onUpdateAmt} value={this.props.value}/>
-        <Button>Submit</Button>
-      </Form>
+          </Button>
+        </Form>
+      </div>
     )
   }
 }
 
 OrderForm.propTypes = {
-  coins: PropTypes.shape({
-    symbol: PropTypes.string,
-    name: PropTypes.string,
-    amt: PropTypes.string
-  }).isRequired,
-  onToggleCoin: PropTypes.func,
-  onOrderSubmit: PropTypes.func
+  onUpdateAmt: PropTypes.func,
+  onOrderSubmit: PropTypes.func,
+  onValidOrder: PropTypes.func
 }
 
 export default OrderForm

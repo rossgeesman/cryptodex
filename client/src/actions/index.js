@@ -1,8 +1,3 @@
-export const toggleCoin = (coin) => ({
-  type: 'TOGGLE_COIN',
-  coin
-})
-
 export const updateTotal = (total) => ({
   type: 'UPDATE_TOTAL',
   total
@@ -25,4 +20,14 @@ export const fetchPrice = (price, symbol) => ({
 
 export const initiateOrder = () => ({
   type: 'INITIATE_ORDER'
+})
+
+export const addTransactions = (txs) => ({
+  type: 'ADD_TXS',
+  txs
+})
+
+export const updateProgress = (amt) => ({
+  type: 'UPDATE_PROGRESS',
+  amt
 })

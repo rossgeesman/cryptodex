@@ -26,6 +26,7 @@
     "react-addons-transition-group": "^15.4.2",
     "react-apollo": "^0.5.7",
     "react-dom": "^15.4.1",
+    "react-progressbar.js": "^0.2.0",
     "react-router": "^2.8.1",
     "reactstrap": "^4.1.0",
     "ripple-lib": "^0.17.4",
