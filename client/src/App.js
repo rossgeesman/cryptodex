@@ -1,17 +1,20 @@
 import React from 'react'
-import './App.css'
 import FlashContainer from './containers/FlashContainer'
+import { Container, Navbar, NavbarBrand } from 'reactstrap'
+import './App.css'
 
 
 function App({children}) {
   return (
-    <div className='App'>
-      <div className='App-header'>
-        <h2>AllTheCoins</h2>
+    <Container fluid={true}>
+      <div className='App'>
+        <Navbar className='App-header'>
+          <NavbarBrand>AllTheCoins</NavbarBrand>
+        </Navbar>
+        <FlashContainer/>
+        {children}
       </div>
-      <FlashContainer/>
-      {children}
-    </div>
+    </Container>
   )
 }
 

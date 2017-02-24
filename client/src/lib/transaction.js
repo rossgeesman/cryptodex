@@ -24,6 +24,11 @@ function open(outputAddr, coin) {
   return makeRequest(REQUEST_TYPE.open, params)
 }
 
+function getEstimate(coin, amt) {
+  let params = {pair: makePair(coin), amount: amt}
+  return makeRequest(REQUEST_TYPE.fixed, params)
+}
+
 function openFixed(outputAddr, coin, amt) {
   let params = {withdrawal: outputAddr, pair: makePair(coin), amount: amt}
   return makeRequest(REQUEST_TYPE.fixed, params)
@@ -62,6 +67,7 @@ function makeRequest(type, params) {
 const Transaction = {
   open: open,
   openFixed: openFixed,
+  getEstimate: getEstimate,
   price: getPrice
 }
 

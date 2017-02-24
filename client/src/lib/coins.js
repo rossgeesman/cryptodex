@@ -283,12 +283,17 @@ const coinList = {
   }
 }
 
+function pairToSym(pair) {
+  return pair.replace('btc_', '').toUpperCase()
+}
+
 const Coins = {
   available: _.pickBy(coinList, function(value) {
     if (value.available === true)
       return value
   }),
-  all: coinList 
+  all: coinList,
+  pairToSym: pairToSym 
 }
 
 

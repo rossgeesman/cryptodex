@@ -1,10 +1,16 @@
 import React from 'react'
-import { Input, FormGroup, Label } from 'reactstrap'
+import { Input, FormGroup, InputGroupAddon, InputGroup } from 'reactstrap'
+
+var inputCoinGroupStyle = {
+  display: 'inline-block',
+  minWidth: '200px'
+}
 
 const InputCoin = ({updateInputAmt, value}) => (
   <div>
-    <FormGroup>
-      <Label>
+    <FormGroup style={inputCoinGroupStyle}>
+      <InputGroup>
+        <InputGroupAddon>BTC</InputGroupAddon>
         <Input
           type='number'
           step='0.01'
@@ -12,8 +18,9 @@ const InputCoin = ({updateInputAmt, value}) => (
           className={'order-amt'}
           value={value}
           onChange={(e) => {updateInputAmt(e.target.value)}}
+          placeholder="Deposit Amount"
         />
-      </Label>
+      </InputGroup>
     </FormGroup>
   </div>
 )
