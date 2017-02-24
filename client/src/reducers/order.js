@@ -2,7 +2,7 @@ import update from 'immutability-helper'
 import Coins from '../lib/coins'
 import payoutAddress from '../lib/payout_address'
 var _ = require('lodash')
-let initalState = {coins: Coins.available, orderProgress: 0, orderState: 'requesting', inputAmt: '', errors: []}
+let initalState = {coins: Coins.available, orderProgress: 0, popoverIsOpen: false, orderState: 'requesting', inputAmt: '', errors: []}
 
 function setAmt(coin, total) {
   let amt = coin.checked ? total : 0
@@ -74,16 +74,26 @@ const order = (state = initalState, action) => {
         orderState: {$set: 'initiated'},
         coins: {$set: _.mapValues(state.coins, (c) => {
           return setAddress(c)
-        })}
+        })},
+        orderProgress: {$set: 0.1 }
       })
     case 'ADD_TXS':
       return update(state, {
         transactions: {$set: action.txs},
-        orderState: {$set: 'opened'}
+        orderState: {$set: 'opened'},
+        orderProgress: {$set: 0.8 }
+      })
+    case 'ADD_ESTIMATES':
+      return update(state, {
+        estimates: {$set: action.estimates}
       })
     case 'UPDATE_PROGRESS':
       return update(state, {
         orderProgress: {$set: action.amt}
+      })
+    case 'TOGGLE_POPOVER':
+      return update(state, {
+        popoverIsOpen: {$set: !state.popoverIsOpen}
       })
   	default:
   	  return state

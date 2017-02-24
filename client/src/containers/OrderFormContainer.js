@@ -4,7 +4,6 @@ import * as actions from '../actions/index.js'
 import OrderForm from '../components/OrderForm'
 import Transaction from '../lib/transaction'
 import TrezorConnect from '../lib/trezor_payment'
-import Coins from '../lib/coins'
 var _ = require('lodash')
 
 
@@ -32,6 +31,11 @@ class OrderFormContainer extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
+    if (newProps.value !== this.props.value && newProps.value !== 0)
+      Promise.all( _.map(newProps.coins, (coin) => {
+        return Transaction.price(coin.symbol)
+      }))
+      .then((responses) => { this.props.addEstimates(responses) })
     if (newProps.orderState === 'initiated' && _.every(newProps.coins, 'address')) {
       Promise.all( _.map(newProps.coins, (coin) => {
         return Transaction.open(coin.address.address, coin.symbol)
@@ -61,6 +65,10 @@ class OrderFormContainer extends React.Component {
       coins={this.props.coins}
       transactions={this.props.transactions}
       updateProgress={this.props.updateProgress}
+      popoverIsOpen={this.props.popoverIsOpen}
+      togglePopover={this.props.togglePopover}
+      addEstimates={this.props.addEstimates}
+      estimates={this.props.estimates}
       />
     )
   }
@@ -72,7 +80,9 @@ const mapStateToProps = (state) => ({
   orderState: state.order.orderState,
   orderProgress: state.order.orderProgress,
   coins: state.order.coins,
-  transactions: state.order.transactions
+  transactions: state.order.transactions,
+  popoverIsOpen: state.order.popoverIsOpen,
+  estimates: state.order.estimates
 })
 
 const mapDispatchToProps = ({
@@ -80,7 +90,10 @@ const mapDispatchToProps = ({
   onOrderSubmit: actions.validateOrder,
   onValidOrder: actions.initiateOrder,
   addTransactions: actions.addTransactions,
-  updateProgress: actions.updateProgress
+  addEstimates: actions.addEstimates,
+  updateProgress: actions.updateProgress,
+  togglePopover: actions.togglePopover
+
 })
 
 export default connect(

@@ -27,7 +27,16 @@ export const addTransactions = (txs) => ({
   txs
 })
 
+export const addEstimates = (estimates) => ({
+  type: 'ADD_ESTIMATES',
+  estimates
+})
+
 export const updateProgress = (amt) => ({
   type: 'UPDATE_PROGRESS',
   amt
+})
+
+export const togglePopover = () => ({
+  type: 'TOGGLE_POPOVER'  
 })
