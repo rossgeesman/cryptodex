@@ -27,6 +27,11 @@ export const addTransactions = (txs) => ({
   txs
 })
 
+export const updateAvailableCoins = (coins) => ({
+  type: 'ADD_AVAILABLE',
+  coins
+})
+
 export const addEstimates = (estimates) => ({
   type: 'ADD_ESTIMATES',
   estimates
