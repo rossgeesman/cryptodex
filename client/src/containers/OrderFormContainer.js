@@ -4,6 +4,7 @@ import * as actions from '../actions/index.js'
 import OrderForm from '../components/OrderForm'
 import Transaction from '../lib/transaction'
 import TrezorConnect from '../lib/trezor_payment'
+import Coins from '../lib/coins'
 var _ = require('lodash')
 
 
@@ -12,6 +13,13 @@ class OrderFormContainer extends React.Component {
   constructor(props) {
     super(props)
     this.beginPayment = this.beginPayment.bind(this)
+  }
+
+  componentWillMount() {
+    Coins.availableNow()
+    .then((coins) => {
+      this.props.updateAvailableCoins(coins)
+    })
   }
 
   beginPayment(addys) {
@@ -69,6 +77,7 @@ class OrderFormContainer extends React.Component {
       togglePopover={this.props.togglePopover}
       addEstimates={this.props.addEstimates}
       estimates={this.props.estimates}
+      updateAvailableCoins={this.props.updateAvailableCoins}
       />
     )
   }
@@ -92,8 +101,8 @@ const mapDispatchToProps = ({
   addTransactions: actions.addTransactions,
   addEstimates: actions.addEstimates,
   updateProgress: actions.updateProgress,
-  togglePopover: actions.togglePopover
-
+  togglePopover: actions.togglePopover,
+  updateAvailableCoins: actions.updateAvailableCoins
 })
 
 export default connect(

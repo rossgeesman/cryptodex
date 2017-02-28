@@ -6,7 +6,6 @@ var _ = require('lodash')
 
 function composeContent(coins, estimates) {
   return estimates.map((est) => {
-    console.log(est)
     let coin_sym = Coins.pairToSym(est.pair)
     return { 
       name: `${coins[coin_sym].name} (${coin_sym})`,

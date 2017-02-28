@@ -10,6 +10,10 @@ const REQUEST_TYPE = {
   fixed: {
     path: () => { return "/sendamount/" },
     method: POST
+  },
+  getAvailable: {
+    path: () => ('/getcoins/'),
+    method: GET
   }, 
   getPrice: {
     path: () => {return "/marketinfo/" + REQUEST_TYPE.getPrice.pair }, 
@@ -37,6 +41,10 @@ function openFixed(outputAddr, coin, amt) {
 function getPrice(coin) {
   REQUEST_TYPE.getPrice.pair = makePair(coin)
   return makeRequest(REQUEST_TYPE.getPrice)
+}
+
+function getAvailable() {
+  return makeRequest(REQUEST_TYPE.getAvailable)
 }
 
 function makePair(symbol) {
@@ -67,6 +75,7 @@ function makeRequest(type, params) {
 const Transaction = {
   open: open,
   openFixed: openFixed,
+  getAvailable: getAvailable,
   getEstimate: getEstimate,
   price: getPrice
 }

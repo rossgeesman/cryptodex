@@ -1,4 +1,5 @@
 var _ = require('lodash')
+import Transaction from './transaction'
 
 const coinList = {
   "BTC":{
@@ -287,12 +288,23 @@ function pairToSym(pair) {
   return pair.replace('btc_', '').toUpperCase()
 }
 
+function availableNow() {
+  return Transaction.getAvailable()
+  .then((exchangeable) => {
+    return _.pickBy(coinList, function(value, key) {
+      if (value.available === true && exchangeable[key].status === 'available')
+        return value
+    })
+  })
+}
+
 const Coins = {
   available: _.pickBy(coinList, function(value) {
     if (value.available === true)
       return value
   }),
   all: coinList,
+  availableNow: availableNow,
   pairToSym: pairToSym 
 }
 

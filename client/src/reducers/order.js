@@ -83,6 +83,10 @@ const order = (state = initalState, action) => {
         orderState: {$set: 'opened'},
         orderProgress: {$set: 0.8 }
       })
+    case 'ADD_AVAILABLE':
+      return update(state, {
+        coins: {$set: action.coins }
+      })
     case 'ADD_ESTIMATES':
       return update(state, {
         estimates: {$set: action.estimates}
