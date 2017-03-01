@@ -38,6 +38,7 @@ var btnCircleStyle = {
   fontSize: '22px',
   borderWidth: 7,
   backgroundColor: '#f3f3f3',
+  borderColor: '#127bbc',
   lineHeight: 1.42,
   borderRadius: '50%'
 }

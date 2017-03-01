@@ -6,12 +6,17 @@ var inputCoinGroupStyle = {
   minWidth: '200px'
 }
 
+var inputFieldStyle = {
+  borderRadius: '3px'
+}
+
 const InputCoin = ({updateInputAmt, value}) => (
   <div>
     <FormGroup style={inputCoinGroupStyle}>
       <InputGroup>
-        <InputGroupAddon>BTC</InputGroupAddon>
+        <InputGroupAddon style={inputFieldStyle}>BTC</InputGroupAddon>
         <Input
+          style={inputFieldStyle}
           type='number'
           step='0.01'
           min='0'
