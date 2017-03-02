@@ -1,8 +1,11 @@
 import update from 'immutability-helper'
 import Coins from '../lib/coins'
 import payoutAddress from '../lib/payout_address'
+import OrderStates from '../lib/OrderStates'
 var _ = require('lodash')
-let initalState = {coins: Coins.available, orderProgress: 0, popoverIsOpen: false, orderState: 'requesting', inputAmt: '', errors: []}
+
+
+let initalState = {coins: Coins.available, orderProgress: 0, popoverIsOpen: false, orderState: OrderStates.preRequesting, inputAmt: '', errors: []}
 
 function setAmt(coin, total) {
   let amt = coin.checked ? total : 0
@@ -50,6 +53,10 @@ function validate(order) {
 
 const order = (state = initalState, action) => {
   switch (action.type) {
+    case 'START_ORDER':
+      return update(state, {
+        orderState: {$set: OrderStates.requesting}
+      })
     case 'UPDATE_TOTAL':
       return setAmts(update(state, {
         inputAmt: {$set: action.total }

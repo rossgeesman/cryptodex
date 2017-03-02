@@ -37,6 +37,10 @@ export const addEstimates = (estimates) => ({
   estimates
 })
 
+export const startOrder = () => ({
+  type: 'START_ORDER'
+})
+
 export const updateProgress = (amt) => ({
   type: 'UPDATE_PROGRESS',
   amt

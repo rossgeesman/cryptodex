@@ -4,11 +4,12 @@ import ContentsPopover from './ContentsPopover'
 const ProgressBar = require('react-progressbar.js')
 const Circle = ProgressBar.Circle
 import { Form, Button, Row, Col, FormGroup } from 'reactstrap'
+import Styles from '../styles'
 var _ = require('lodash')
 
 var containerStyle = {
-  width: '237px',
-  height: '237px',
+  width: '136px',
+  height: '136px',
   verticalAlign: 'middle',
   display: 'inline-block',
 
@@ -19,8 +20,8 @@ var options = {
   trailWidth: 0,
   easing: 'easeInOut',
   text: { autoStyleContainer: false },
-  from: { color: '#aaa'},
-  to: { color: '#3ab764'},
+  from: { color: Styles.colors.brandMediumGray},
+  to: { color: Styles.colors.brandGreen},
   step: (state, bar) => {
     bar.path.setAttribute('stroke', state.color)
   }
@@ -31,13 +32,14 @@ var btnGroupStyle = {
 }
 
 var btnCircleStyle = {
-  width: '250px',
-  height: '250px',
+  width: '150px',
+  height: '150px',
   textAlign: 'center',
   padding: 0,
-  fontSize: '22px',
+  fontSize: '18px',
   borderWidth: 7,
-  backgroundColor: '#f3f3f3',
+  backgroundColor: Styles.colors.brandLightGray,
+  borderColor: Styles.colors.brandBlue,
   lineHeight: 1.42,
   borderRadius: '50%'
 }

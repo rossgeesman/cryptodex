@@ -1,11 +1,11 @@
 import React from 'react'
 import { Route } from 'react-router'
 import App from '../App'
-import OrderFormContainer from '../containers/OrderFormContainer'
+import MainJumbotron from '../components/MainJumbotron'
 
 
 export default (
   <Route path="/" component={App} >
-    <Route path="order" component={OrderFormContainer}/>
+    <Route path="order" component={MainJumbotron}/>
   </Route>
 )
