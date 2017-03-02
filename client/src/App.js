@@ -3,12 +3,21 @@ import FlashContainer from './containers/FlashContainer'
 import { Container, Navbar, NavbarBrand } from 'reactstrap'
 import './App.css'
 
+var appStyle = {
+  textAlign: 'center'
+}
+var appHeaderStyle = {
+  textAlign: "left",
+  height: "50px",
+  paddingTop: "30px",
+  marginBottom: "40px"
+}
 
 function App({children}) {
   return (
     <Container fluid={true}>
-      <div className='App'>
-        <Navbar className='App-header'>
+      <div style={appStyle}>
+        <Navbar style={appHeaderStyle}>
           <NavbarBrand>AllTheCoins</NavbarBrand>
         </Navbar>
         <FlashContainer/>
