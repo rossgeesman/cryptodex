@@ -9,7 +9,7 @@ function composeContent(coins, estimates) {
     let coin_sym = Coins.pairToSym(est.pair)
     return { 
       name: `${coins[coin_sym].name} (${coin_sym})`,
-      amount: (coins[coin_sym].amt * est.rate).toFixed(2)
+      amount: (Coins.asBtc(coins[coin_sym].amt) * est.rate).toFixed(2)
     }
   })
 }
