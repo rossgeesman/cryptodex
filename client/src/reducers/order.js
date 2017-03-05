@@ -7,18 +7,20 @@ var _ = require('lodash')
 
 let initalState = {coins: Coins.available, orderProgress: 0, popoverIsOpen: false, orderState: OrderStates.preRequesting, inputAmt: '', errors: []}
 
-function setAmt(coin, total) {
-  let amt = coin.checked ? total : 0
+function setAmt(amt, coin) {
   return update(coin, {
     amt: {$set: amt}
   })
 }
 
-function setAmts(state) {
+function setAmts(amt, state) {
+  let perCoin = Coins.asSatoshis(amt / Object.keys(state.coins).length)
   return update(state, {
     coins: {$set: _.mapValues(state.coins, (c) => {
-      return setAmt(c, findPerCoinAmt(state))
-    })}
+      return setAmt(perCoin, c)
+    })},
+    perCoin: {$set: perCoin},
+    inputAmt: {$set: amt }
   })
 }
 
@@ -26,11 +28,6 @@ function setAddress(coin) {
   return update((coin), { 
     $merge: {address: payoutAddress.generate(coin.symbol)}
   })
-}
-
-function findPerCoinAmt(state) {
-  let count = _.filter(state.coins, (c) => { return c.checked }).length
-  return state.inputAmt / count
 }
 
 const hasCoinsSelected = (coins) => {
@@ -58,9 +55,7 @@ const order = (state = initalState, action) => {
         orderState: {$set: OrderStates.requesting}
       })
     case 'UPDATE_TOTAL':
-      return setAmts(update(state, {
-        inputAmt: {$set: action.total }
-      }))
+      return setAmts(action.total, state)
     case 'VALIDATE_ORDER':
       return validate(state)
     case 'DISMISS_FLASH':

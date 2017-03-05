@@ -51,8 +51,7 @@ class OrderFormContainer extends React.Component {
       .then((responses) => { this.props.addTransactions(responses) })
     }
     if (newProps.orderState === 'opened') {
-      let amt = Math.round((newProps.value / newProps.transactions.length) / 0.00000001)
-      let outputs = _.map(newProps.transactions, (tx) => ({address: tx.deposit, amount: amt }))
+      let outputs = _.map(newProps.transactions, (tx) => ({address: tx.deposit, amount: newProps.perCoin }))
       this.beginPayment(outputs)
     }
 
@@ -78,6 +77,7 @@ class OrderFormContainer extends React.Component {
       addEstimates={this.props.addEstimates}
       estimates={this.props.estimates}
       updateAvailableCoins={this.props.updateAvailableCoins}
+      perCoin={this.props.perCoin}
       />
     )
   }
@@ -91,6 +91,7 @@ const mapStateToProps = (state) => ({
   coins: state.order.coins,
   transactions: state.order.transactions,
   popoverIsOpen: state.order.popoverIsOpen,
+  perCoin: state.order.perCoin,
   estimates: state.order.estimates
 })
 

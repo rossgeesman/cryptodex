@@ -298,6 +298,14 @@ function availableNow() {
   })
 }
 
+function asSatoshis(amt) {
+  return Math.floor(amt * 100000000)
+}
+
+function asBtc(amt) {
+  return  amt * 0.00000001
+}
+
 const Coins = {
   available: _.pickBy(coinList, function(value) {
     if (value.available === true)
@@ -305,7 +313,9 @@ const Coins = {
   }),
   all: coinList,
   availableNow: availableNow,
-  pairToSym: pairToSym 
+  pairToSym: pairToSym,
+  asSatoshis: asSatoshis,
+  asBtc: asBtc
 }
 
 

@@ -7,18 +7,27 @@ var appStyle = {
   textAlign: 'center'
 }
 var appHeaderStyle = {
+  width: '100%',
   textAlign: "left",
-  height: "50px",
-  paddingTop: "30px",
-  marginBottom: "40px"
+  height: "60px",
+  backgroundColor: 'white',
+  paddingLeft: '80px'
+}
+
+var brandStyle = {
+  color: 'black'
+}
+
+var containerStyle = {
+  padding: '0px'
 }
 
 function App({children}) {
   return (
-    <Container fluid={true}>
+    <Container fluid={true} style={containerStyle}>
       <div style={appStyle}>
         <Navbar style={appHeaderStyle}>
-          <NavbarBrand>AllTheCoins</NavbarBrand>
+          <NavbarBrand style={brandStyle}>AllTheCoins</NavbarBrand>
         </Navbar>
         <FlashContainer/>
         {children}

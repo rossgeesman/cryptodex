@@ -1,5 +1,6 @@
 import React from 'react'
 import { Input, FormGroup, InputGroupAddon, InputGroup } from 'reactstrap'
+import Styles from '../styles'
 
 var inputCoinGroupStyle = {
   display: 'inline-block',
@@ -7,7 +8,7 @@ var inputCoinGroupStyle = {
 }
 
 var inputFieldStyle = {
-  borderRadius: '3px'
+  borderRadius: Styles.shapes.borderRadius
 }
 
 const InputCoin = ({updateInputAmt, value}) => (
