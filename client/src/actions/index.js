@@ -49,3 +49,8 @@ export const updateProgress = (amt) => ({
 export const togglePopover = () => ({
   type: 'TOGGLE_POPOVER'  
 })
+
+export const switchTab = (tab) => ({
+  type: 'SWITCH_TAB',
+  tab
+})

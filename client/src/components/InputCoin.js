@@ -4,7 +4,7 @@ import Styles from '../styles'
 
 var inputCoinGroupStyle = {
   display: 'inline-block',
-  minWidth: '200px'
+  width: '300px'
 }
 
 var inputFieldStyle = {
@@ -14,6 +14,7 @@ var inputFieldStyle = {
 const InputCoin = ({updateInputAmt, value}) => (
   <div>
     <FormGroup style={inputCoinGroupStyle}>
+      <legend>Order Details</legend>
       <InputGroup>
         <InputGroupAddon style={inputFieldStyle}>BTC</InputGroupAddon>
         <Input
