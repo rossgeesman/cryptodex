@@ -80,7 +80,6 @@ const order = (state = initalState, action) => {
         orderProgress: {$set: 0.1 }
       })
     case 'ADD_TXS':
-      console.log(action)
       return update(state, {
         transactions: {$set: action.txs},
         orderState: {$set: OrderStates.opened},
@@ -106,6 +105,13 @@ const order = (state = initalState, action) => {
       return update(state, {
         activeTab: {$set: action.tab}
       })
+    case 'TOGGLE_MODAL':
+      let foo = update(state, {
+        visibleModal: {$set: action.modal},
+        modalData: {$set: action.modalData}
+      })
+      console.log(foo)
+      return foo
   	default:
   	  return state
   }

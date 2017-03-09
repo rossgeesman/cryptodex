@@ -1,5 +1,6 @@
 import React from 'react'
 import FlashContainer from './containers/FlashContainer'
+import ModalContainer from './containers/ModalContainer'
 import { Container, Navbar, NavbarBrand } from 'reactstrap'
 import './App.css'
 
@@ -26,6 +27,7 @@ function App({children}) {
   return (
     <Container fluid={true} style={containerStyle}>
       <div style={appStyle}>
+        <ModalContainer/>
         <Navbar style={appHeaderStyle}>
           <NavbarBrand style={brandStyle}>AllTheCoins</NavbarBrand>
         </Navbar>

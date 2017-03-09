@@ -54,3 +54,9 @@ export const switchTab = (tab) => ({
   type: 'SWITCH_TAB',
   tab
 })
+
+export const toggleModal = (modal, modalData) => ({
+  type: 'TOGGLE_MODAL',
+  modal,
+  modalData
+})

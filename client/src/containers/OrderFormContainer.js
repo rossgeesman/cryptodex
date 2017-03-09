@@ -22,7 +22,7 @@ class OrderFormContainer extends React.Component {
   }
 
   beginPayment(outputs) {
-    console.log(outputs)
+    
 
   }
 
@@ -41,8 +41,7 @@ class OrderFormContainer extends React.Component {
       })
     }
     if (newProps.orderState === 'opened') {
-      let outputs = _.map(newProps.transactions, (tx) => ({address: tx.deposit, amount: newProps.perCoin }))
-      this.beginPayment(outputs)
+      this.props.toggleModal('addressesModal', _.mapValues(newProps.coins, 'address'))
     }
 
 
@@ -93,7 +92,8 @@ const mapDispatchToProps = ({
   addEstimates: actions.addEstimates,
   updateProgress: actions.updateProgress,
   togglePopover: actions.togglePopover,
-  updateAvailableCoins: actions.updateAvailableCoins
+  updateAvailableCoins: actions.updateAvailableCoins,
+  toggleModal: actions.toggleModal
 })
 
 export default connect(
