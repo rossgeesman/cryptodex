@@ -3,8 +3,9 @@ import { Input, FormGroup, InputGroupAddon, InputGroup } from 'reactstrap'
 import Styles from '../styles'
 
 var inputCoinGroupStyle = {
-  display: 'inline-block',
-  width: '300px'
+  width: '95%',
+  marginLeft: 'auto',
+  marginRight: 'auto'
 }
 
 var inputFieldStyle = {
@@ -13,9 +14,9 @@ var inputFieldStyle = {
 
 const InputCoin = ({updateInputAmt, value}) => (
   <div>
-    <FormGroup style={inputCoinGroupStyle}>
+    <FormGroup style={{paddingBottom: '2%', marginBottom: '0px'}} >
       <legend>Order Details</legend>
-      <InputGroup>
+      <InputGroup style={inputCoinGroupStyle}>
         <InputGroupAddon style={inputFieldStyle}>BTC</InputGroupAddon>
         <Input
           style={inputFieldStyle}
