@@ -2,20 +2,17 @@ import React, { PropTypes } from 'react'
 import InputCoin from './InputCoin'
 const ProgressBar = require('react-progressbar.js')
 const Circle = ProgressBar.Circle
-import { Form, Button, Row, Col, FormGroup, FormText } from 'reactstrap'
+import { Form, Button, Row, Col, FormText } from 'reactstrap'
 import Styles from '../styles'
 var _ = require('lodash')
 
 var containerStyle = {
-  width: '250px',
-  height: '250px',
+  paddingTop: '7px',
+  minWidth: '220px',
+  minHeight: '220px',
   verticalAlign: 'middle',
   display: 'inline-block',
 
-}
-
-var formStyle = {
-  margin: '20px'
 }
 
 var options = {
@@ -30,21 +27,15 @@ var options = {
   }
 }
 
-var btnGroupStyle = {
-  paddingTop: '15px',
-  display: 'inline-block'
-}
-
 var purchaseBtnStyle = {
-  width: '300px',
-  textAlign: 'center',
+  width: '95%',
+  paddingLeft: 'auto',
+  paddingRight: 'auto',
   color: 'white',
   backgroundColor: Styles.colors.brandGreen,
   borderColor: Styles.colors.brandGreen,
-  borderRadius: Styles.shapes.borderRadius,
-  lineHeight: 1.42
+  borderRadius: Styles.shapes.borderRadius
 }
-
 
 class OrderForm extends React.Component {
 
@@ -68,7 +59,7 @@ class OrderForm extends React.Component {
     return (
       <Row>
         <Col xs="12">
-          <Form style={formStyle} onSubmit={(e) => { this.validate(e) }} inline>
+          <Form onSubmit={(e) => { this.validate(e) }} inline>
             <Col md="6">
               <Circle
                 progress={this.props.orderProgress}
@@ -80,12 +71,11 @@ class OrderForm extends React.Component {
             </Col>
             <Col md="6">
               <InputCoin id="inputCoin" updateInputAmt={this.props.onUpdateAmt} value={this.props.value}/>
-              <FormGroup style={btnGroupStyle}>
-                <Button style={purchaseBtnStyle}>Start Purchase</Button>
-                <FormText style={{textAlign: 'left', width: '300px'}}color="muted">
-                  Deposit will be split evenly across all of the supported coins.
-                </FormText>
-              </FormGroup>
+              <Button style={purchaseBtnStyle}>Start Purchase</Button>
+              <FormText style={{marginBottom: '7px', width: '95%', marginLeft: 'auto', marginRight: 'auto'}} color="muted">
+                BTC deposit will be split evenly across all of the supported assets.
+              </FormText>
+              
             </Col>
           </Form>
         </Col>

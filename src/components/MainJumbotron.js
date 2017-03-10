@@ -23,7 +23,7 @@ var buttonStyle = {
 }
 
 var cardStyle = {
-  height: '360px',
+  minHeight: '360px',
   maxWidth: '750px',
   margin: 'auto',
   backgroundColor: Styles.colors.brandLightGray,

@@ -13,7 +13,7 @@ var appHeaderStyle = {
   textAlign: "left",
   height: "60px",
   backgroundColor: 'white',
-  paddingLeft: '80px'
+  paddingLeft: '3%'
 }
 
 var brandStyle = {
