@@ -1,9 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { startOrder } from '../actions/index.js'
+import { startOrder, switchTab } from '../actions/index.js'
 import { Jumbotron, Container, Collapse, Button, CardBlock, Card } from 'reactstrap'
-import OrderFormContainer from '../containers/OrderFormContainer'
 import OrderStates from '../lib/OrderStates'
+import TabMenu from './TabMenu'
 
 //Styling
 import Styles from '../styles'
@@ -23,7 +23,7 @@ var buttonStyle = {
 }
 
 var cardStyle = {
-  minHeight: '300px',
+  height: '360px',
   maxWidth: '750px',
   margin: 'auto',
   backgroundColor: Styles.colors.brandLightGray,
@@ -34,7 +34,7 @@ var cardStyle = {
 }
 
 var cardBlockStyle = {
-  paddingTop: '60px'
+  padding: '0px'
 }
 
 var heroTextStyle = {
@@ -42,21 +42,21 @@ var heroTextStyle = {
 }
 
 
-const MainJumbotron = ({orderState, startOrder}) => {
+const MainJumbotron = ({orderState, startOrder, activeTab, switchTab, estimates, coins}) => {
   return (
     <Jumbotron style={jumbotronStyle} fluid>
       <Container fluid>
         <div style={heroTextStyle}>
           <h1  className="display-3">Buy all of the coins</h1>
           <p className="lead">
-            Gain exposure to the top blockchain assets with one click.
+            Gain exposure to blockchain assets with one click.
           </p>
         </div>
         {(orderState === OrderStates.preRequesting) ? <Button onClick={startOrder} style={buttonStyle} active>Get Started</Button> : null}
         <Collapse isOpen={(orderState === OrderStates.preRequesting) ? false : true}>
           <Card style={cardStyle}>
             <CardBlock style={cardBlockStyle}>
-              <OrderFormContainer/>
+              <TabMenu activeTab={activeTab} switchTab={switchTab} coins={coins} estimates={estimates}/>
             </CardBlock>
           </Card>
         </Collapse>
@@ -66,11 +66,15 @@ const MainJumbotron = ({orderState, startOrder}) => {
 }
 
 const mapStateToProps = (state) => ({
-  orderState: state.order.orderState
+  orderState: state.order.orderState,
+  activeTab: state.order.activeTab,
+  estimates: state.order.estimates,
+  coins: state.order.coins
 })
 
 const mapDispatchToProps = ({
-  startOrder: startOrder
+  startOrder: startOrder,
+  switchTab: switchTab
 })
 
 export default connect(

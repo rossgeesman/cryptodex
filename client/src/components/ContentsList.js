@@ -4,6 +4,13 @@ import LineItem from './LineItem'
 import Coins from '../lib/coins'
 var _ = require('lodash')
 
+var contentsDivStyle = {
+  overflow: 'auto', 
+  maxHeight: '300px', 
+  paddingLeft: '16px', 
+  paddingRight: '16px'
+}
+
 function composeContent(coins, estimates) {
   return estimates.map((est) => {
     let coin_sym = Coins.pairToSym(est.pair)
@@ -16,8 +23,8 @@ function composeContent(coins, estimates) {
 
 const ContentsList = ({coins, estimates}) => {
   return (
-    <div>
-      <Table responsive size='sm'>
+    <div style={contentsDivStyle}>
+      <Table size="sm">
         <thead>
           <tr>
             <th>Coin</th>

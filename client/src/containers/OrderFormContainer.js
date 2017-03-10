@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import * as actions from '../actions/index.js'
 import OrderForm from '../components/OrderForm'
 import Transaction from '../lib/transaction'
-import TrezorConnect from '../lib/trezor_payment'
 import Coins from '../lib/coins'
 var _ = require('lodash')
 
@@ -22,20 +21,9 @@ class OrderFormContainer extends React.Component {
     })
   }
 
-  beginPayment(addys) {
-    TrezorConnect.composeAndSignTx(addys, function (result) {
-      if (result.success) {
-        TrezorConnect.pushTransaction(result.serialized_tx, function (pushResult) {
-          if (pushResult.success) {
-            console.log('Transaction pushed. Id:', pushResult.txid) // ID of the transaction
-          } else {
-            console.error('Error:', pushResult.error) // error message
-          }
-        })
-      } else {
-        console.error('Error:', result.error) // error message
-      }
-    })
+  beginPayment(outputs) {
+    
+
   }
 
   componentWillReceiveProps(newProps) {
@@ -48,11 +36,12 @@ class OrderFormContainer extends React.Component {
       Promise.all( _.map(newProps.coins, (coin) => {
         return Transaction.open(coin.address.address, coin.symbol)
       }))
-      .then((responses) => { this.props.addTransactions(responses) })
+      .then((responses) => { 
+        this.props.addTransactions(responses) 
+      })
     }
     if (newProps.orderState === 'opened') {
-      let outputs = _.map(newProps.transactions, (tx) => ({address: tx.deposit, amount: newProps.perCoin }))
-      this.beginPayment(outputs)
+      this.props.toggleModal('addressesModal', _.mapValues(newProps.coins, 'address'))
     }
 
 
@@ -103,7 +92,8 @@ const mapDispatchToProps = ({
   addEstimates: actions.addEstimates,
   updateProgress: actions.updateProgress,
   togglePopover: actions.togglePopover,
-  updateAvailableCoins: actions.updateAvailableCoins
+  updateAvailableCoins: actions.updateAvailableCoins,
+  toggleModal: actions.toggleModal
 })
 
 export default connect(

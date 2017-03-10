@@ -5,7 +5,7 @@ import OrderStates from '../lib/OrderStates'
 var _ = require('lodash')
 
 
-let initalState = {coins: Coins.available, orderProgress: 0, popoverIsOpen: false, orderState: OrderStates.preRequesting, inputAmt: '', errors: []}
+let initalState = {activeTab: 'purchase', coins: Coins.available, orderProgress: 0, popoverIsOpen: false, orderState: OrderStates.preRequesting, inputAmt: '', errors: []}
 
 function setAmt(amt, coin) {
   return update(coin, {
@@ -82,7 +82,7 @@ const order = (state = initalState, action) => {
     case 'ADD_TXS':
       return update(state, {
         transactions: {$set: action.txs},
-        orderState: {$set: 'opened'},
+        orderState: {$set: OrderStates.opened},
         orderProgress: {$set: 0.8 }
       })
     case 'ADD_AVAILABLE':
@@ -101,6 +101,17 @@ const order = (state = initalState, action) => {
       return update(state, {
         popoverIsOpen: {$set: !state.popoverIsOpen}
       })
+    case 'SWITCH_TAB':
+      return update(state, {
+        activeTab: {$set: action.tab}
+      })
+    case 'TOGGLE_MODAL':
+      let foo = update(state, {
+        visibleModal: {$set: action.modal},
+        modalData: {$set: action.modalData}
+      })
+      console.log(foo)
+      return foo
   	default:
   	  return state
   }

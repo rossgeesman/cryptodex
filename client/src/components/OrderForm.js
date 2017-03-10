@@ -1,26 +1,29 @@
 import React, { PropTypes } from 'react'
 import InputCoin from './InputCoin'
-import ContentsPopover from './ContentsPopover'
 const ProgressBar = require('react-progressbar.js')
 const Circle = ProgressBar.Circle
-import { Form, Button, Row, Col, FormGroup } from 'reactstrap'
+import { Form, Button, Row, Col, FormGroup, FormText } from 'reactstrap'
 import Styles from '../styles'
 var _ = require('lodash')
 
 var containerStyle = {
-  width: '136px',
-  height: '136px',
+  width: '250px',
+  height: '250px',
   verticalAlign: 'middle',
   display: 'inline-block',
 
 }
 
+var formStyle = {
+  margin: '20px'
+}
+
 var options = {
-  strokeWidth: 4,
-  trailWidth: 0,
+  strokeWidth: 6,
+  trailWidth: 6,
   easing: 'easeInOut',
   text: { autoStyleContainer: false },
-  from: { color: Styles.colors.brandMediumGray},
+  from: { color: Styles.colors.brandBlue},
   to: { color: Styles.colors.brandGreen},
   step: (state, bar) => {
     bar.path.setAttribute('stroke', state.color)
@@ -28,20 +31,18 @@ var options = {
 }
 
 var btnGroupStyle = {
+  paddingTop: '15px',
   display: 'inline-block'
 }
 
-var btnCircleStyle = {
-  width: '150px',
-  height: '150px',
+var purchaseBtnStyle = {
+  width: '300px',
   textAlign: 'center',
-  padding: 0,
-  fontSize: '18px',
-  borderWidth: 7,
-  backgroundColor: Styles.colors.brandLightGray,
-  borderColor: Styles.colors.brandBlue,
-  lineHeight: 1.42,
-  borderRadius: '50%'
+  color: 'white',
+  backgroundColor: Styles.colors.brandGreen,
+  borderColor: Styles.colors.brandGreen,
+  borderRadius: Styles.shapes.borderRadius,
+  lineHeight: 1.42
 }
 
 
@@ -67,30 +68,24 @@ class OrderForm extends React.Component {
     return (
       <Row>
         <Col xs="12">
-          <Form onSubmit={(e) => { this.validate(e) }} inline>
-            <Col md="4">
-              <InputCoin id="inputCoin" updateInputAmt={this.props.onUpdateAmt} value={this.props.value}/>
-            </Col>
-            <Col md="4">
-              <FormGroup style={btnGroupStyle}>
-                <Button style={btnCircleStyle}>
-                  <Circle
-                    progress={this.props.orderProgress}
-                    text={(this.props.orderState === 'requesting') ? ( 'Purchase' ) : ( 'Requested' )}
-                    initialAnimate={true}
-                    containerStyle={containerStyle}
-                    options={options}
-                  />
-                </Button>
-              </FormGroup>
-            </Col>
-            <Col md="4">
-              <ContentsPopover 
-                togglePopover={this.props.togglePopover} 
-                popoverIsOpen={this.props.popoverIsOpen} 
-                estimates={this.props.estimates}
-                coins={this.props.coins}
+          <Form style={formStyle} onSubmit={(e) => { this.validate(e) }} inline>
+            <Col md="6">
+              <Circle
+                progress={this.props.orderProgress}
+                text={(this.props.orderState === 'requesting') ? ( 'Purchase' ) : ( 'Requested' )}
+                initialAnimate={true}
+                containerStyle={containerStyle}
+                options={options}
               />
+            </Col>
+            <Col md="6">
+              <InputCoin id="inputCoin" updateInputAmt={this.props.onUpdateAmt} value={this.props.value}/>
+              <FormGroup style={btnGroupStyle}>
+                <Button style={purchaseBtnStyle}>Start Purchase</Button>
+                <FormText style={{textAlign: 'left', width: '300px'}}color="muted">
+                  Deposit will be split evenly across all of the supported coins.
+                </FormText>
+              </FormGroup>
             </Col>
           </Form>
         </Col>
