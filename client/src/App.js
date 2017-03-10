@@ -1,6 +1,7 @@
 import React from 'react'
 import FlashContainer from './containers/FlashContainer'
 import ModalContainer from './containers/ModalContainer'
+import MainJumbotron from './components/MainJumbotron'
 import { Container, Navbar, NavbarBrand } from 'reactstrap'
 import './App.css'
 
@@ -32,7 +33,7 @@ function App({children}) {
           <NavbarBrand style={brandStyle}>AllTheCoins</NavbarBrand>
         </Navbar>
         <FlashContainer/>
-        {children}
+        <MainJumbotron/>
       </div>
     </Container>
   )
