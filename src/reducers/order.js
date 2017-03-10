@@ -106,12 +106,10 @@ const order = (state = initalState, action) => {
         activeTab: {$set: action.tab}
       })
     case 'TOGGLE_MODAL':
-      let foo = update(state, {
+      return update(state, {
         visibleModal: {$set: action.modal},
         modalData: {$set: action.modalData}
       })
-      console.log(foo)
-      return foo
   	default:
   	  return state
   }

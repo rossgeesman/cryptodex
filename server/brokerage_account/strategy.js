@@ -1,8 +1,0 @@
-
-
-const strategy = {
-  execute() {
-  	                    coins
-  },
-
-}
