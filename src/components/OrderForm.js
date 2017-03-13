@@ -69,7 +69,7 @@ class OrderForm extends React.Component {
             />
           </Col>
           <Col>
-            <Form onSubmit={(e) => { this.validate(e) }}>
+            <Form style={containerStyle} onSubmit={(e) => { this.validate(e) }}>
               <InputCoin id="inputCoin" updateInputAmt={this.props.onUpdateAmt} value={this.props.value}/>
               <Button style={purchaseBtnStyle}>Start Purchase</Button>
               <FormText style={{marginBottom: '7px', width: '95%', marginLeft: 'auto', marginRight: 'auto'}} color="muted">
