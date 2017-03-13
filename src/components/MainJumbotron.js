@@ -47,7 +47,7 @@ const MainJumbotron = ({orderState, startOrder, activeTab, switchTab, estimates,
     <Jumbotron style={jumbotronStyle} fluid>
       <Container fluid>
         <div style={heroTextStyle}>
-          <h1  className="display-3">Buy all of the coins</h1>
+          <h1 className="display-3">Buy all of the coins</h1>
           <p className="lead">
             Gain exposure to blockchain assets with one click.
           </p>

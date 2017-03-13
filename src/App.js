@@ -26,7 +26,7 @@ var containerStyle = {
 
 function App({children}) {
   return (
-    <Container fluid={true} style={containerStyle}>
+    <Container fluid={true} className="full-width">
       <div style={appStyle}>
         <ModalContainer/>
         <Navbar style={appHeaderStyle}>
