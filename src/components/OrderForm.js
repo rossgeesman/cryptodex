@@ -57,29 +57,28 @@ class OrderForm extends React.Component {
 
   render() {
     return (
-      <Row>
-        <Col>
-          <Form onSubmit={(e) => { this.validate(e) }} inline>
-            <Col>
-              <Circle
-                progress={this.props.orderProgress}
-                text={(this.props.orderState === 'requesting') ? ( 'Purchase' ) : ( 'Requested' )}
-                initialAnimate={true}
-                containerStyle={containerStyle}
-                options={options}
-              />
-            </Col>
-            <Col>
+      <Col>
+        <Row>
+          <Col>
+            <Circle
+              progress={this.props.orderProgress}
+              text={(this.props.orderState === 'requesting') ? ( 'Purchase' ) : ( 'Requested' )}
+              initialAnimate={true}
+              containerStyle={containerStyle}
+              options={options}
+            />
+          </Col>
+          <Col>
+            <Form onSubmit={(e) => { this.validate(e) }}>
               <InputCoin id="inputCoin" updateInputAmt={this.props.onUpdateAmt} value={this.props.value}/>
               <Button style={purchaseBtnStyle}>Start Purchase</Button>
               <FormText style={{marginBottom: '7px', width: '95%', marginLeft: 'auto', marginRight: 'auto'}} color="muted">
                 BTC deposit will be split evenly across all of the supported assets.
               </FormText>
-              
-            </Col>
-          </Form>
-        </Col>
-      </Row>
+            </Form>
+          </Col>
+        </Row>
+      </Col>
     )
   }
 }
