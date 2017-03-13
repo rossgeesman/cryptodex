@@ -58,9 +58,9 @@ class OrderForm extends React.Component {
   render() {
     return (
       <Row>
-        <Col xs="12">
+        <Col>
           <Form onSubmit={(e) => { this.validate(e) }} inline>
-            <Col md="6">
+            <Col>
               <Circle
                 progress={this.props.orderProgress}
                 text={(this.props.orderState === 'requesting') ? ( 'Purchase' ) : ( 'Requested' )}
@@ -69,7 +69,7 @@ class OrderForm extends React.Component {
                 options={options}
               />
             </Col>
-            <Col md="6">
+            <Col>
               <InputCoin id="inputCoin" updateInputAmt={this.props.onUpdateAmt} value={this.props.value}/>
               <Button style={purchaseBtnStyle}>Start Purchase</Button>
               <FormText style={{marginBottom: '7px', width: '95%', marginLeft: 'auto', marginRight: 'auto'}} color="muted">
