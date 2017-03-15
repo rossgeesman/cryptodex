@@ -60,3 +60,7 @@ export const toggleModal = (modal, modalData) => ({
   modal,
   modalData
 })
+
+export const acknowledgeAddr = () => ({
+  type: 'ADDRESS_RCVD'
+})

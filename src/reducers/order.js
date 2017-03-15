@@ -110,6 +110,11 @@ const order = (state = initalState, action) => {
         visibleModal: {$set: action.modal},
         modalData: {$set: action.modalData}
       })
+    case 'ADDRESS_RCVD':
+      return update(state, {
+        orderState: {$set: OrderStates.requestingPayment},
+        visibleModal: {$set: null}
+      })
   	default:
   	  return state
   }

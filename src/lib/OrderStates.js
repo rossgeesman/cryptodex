@@ -3,7 +3,8 @@ const OrderStates = {
   requesting: 'requesting', 
   requested: 'requested', 
   initiated: 'initiated',
-  opened: 'opened', 
+  opened: 'opened',
+  requestingPayment: 'requestingPayment', 
   completed: 'completed'
 }
 export default OrderStates

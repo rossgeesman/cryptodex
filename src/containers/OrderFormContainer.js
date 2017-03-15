@@ -4,6 +4,7 @@ import * as actions from '../actions/index.js'
 import OrderForm from '../components/OrderForm'
 import Transaction from '../lib/transaction'
 import Coins from '../lib/coins'
+import OrderStates from '../lib/OrderStates'
 var _ = require('lodash')
 
 
@@ -31,7 +32,8 @@ class OrderFormContainer extends React.Component {
       Promise.all( _.map(newProps.coins, (coin) => {
         return Transaction.price(coin.symbol)
       }))
-      .then((responses) => { this.props.addEstimates(responses) })
+      .then((responses) => { 
+        this.props.addEstimates(responses) })
     if (newProps.orderState === 'initiated' && _.every(newProps.coins, 'address')) {
       Promise.all( _.map(newProps.coins, (coin) => {
         return Transaction.open(coin.address.address, coin.symbol)
@@ -43,7 +45,8 @@ class OrderFormContainer extends React.Component {
     if (newProps.orderState === 'opened') {
       this.props.toggleModal('addressesModal', _.mapValues(newProps.coins, 'address'))
     }
-
+    if (newProps.orderState === OrderStates.requestingPayment && this.props.orderState === OrderStates.opened)
+      console.log('working')
 
   }
 
