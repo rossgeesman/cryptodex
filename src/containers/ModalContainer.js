@@ -14,7 +14,7 @@ const AddressesModal = ({addresses, toggleModal, isOpen, acknowledgeAddr}) => {
   return (
     <div>
       <Modal isOpen={isOpen} toggle={toggleModal}>
-        <ModalHeader toggle={toggleModal}>Order Addresses</ModalHeader>
+        <ModalHeader toggle={acknowledgeAddr}>Order Addresses</ModalHeader>
         <ModalBody>
             <ListGroup>
               <ListGroupItem color="danger">

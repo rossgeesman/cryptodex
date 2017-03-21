@@ -45,9 +45,10 @@ class OrderFormContainer extends React.Component {
     if (newProps.orderState === 'opened') {
       this.props.toggleModal('addressesModal', _.mapValues(newProps.coins, 'address'))
     }
-    if (newProps.orderState === OrderStates.requestingPayment && this.props.orderState === OrderStates.opened)
-      console.log('working')
-
+    if (newProps.orderState === OrderStates.requestingPayment && this.props.orderState === OrderStates.opened) {
+      console.log(newProps)
+      this.props.switchTab('invoice')
+    }
   }
 
   render() {
@@ -96,7 +97,8 @@ const mapDispatchToProps = ({
   updateProgress: actions.updateProgress,
   togglePopover: actions.togglePopover,
   updateAvailableCoins: actions.updateAvailableCoins,
-  toggleModal: actions.toggleModal
+  toggleModal: actions.toggleModal,
+  switchTab: actions.switchTab
 })
 
 export default connect(
