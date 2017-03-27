@@ -1,6 +1,7 @@
 import React from 'react'
 import { Button, Card, CardHeader, CardTitle, CardBlock, CardFooter, CardText } from 'reactstrap'
 import OrderStates from '../lib/OrderStates'
+import { Link } from 'react-router-dom'
 
 var invoiceCardStyle = {
   margin: '10px'	
@@ -21,7 +22,10 @@ const Invoice = ({orderState, perCoin, transactions}) => {
         </CardBlock>
         <CardFooter>
           <Button>Pay with Trezor</Button>
-          <Button>Pay with another wallet</Button>
+          <Button>
+            Bitcoin Wallet
+          </Button>
+          
         </CardFooter>
       </Card>
     )

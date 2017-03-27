@@ -28,6 +28,7 @@ class OrderFormContainer extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
+    console.log(newProps)
     if (newProps.value !== this.props.value && newProps.value !== 0)
       Promise.all( _.map(newProps.coins, (coin) => {
         return Transaction.price(coin.symbol)

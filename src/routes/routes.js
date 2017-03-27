@@ -7,5 +7,6 @@ import MainJumbotron from '../components/MainJumbotron'
 export default (
   <Route path="/" component={App} >
     <Route path="order" component={MainJumbotron}/>
+
   </Route>
 )
