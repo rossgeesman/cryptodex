@@ -2,6 +2,7 @@ import React from 'react'
 import { TabContent, TabPane, Nav, NavItem, NavLink } from 'reactstrap'
 import OrderFormContainer from '../containers/OrderFormContainer'
 import ContentsList from './ContentsList'
+import Invoice from './Invoice'
 import Styles from '../styles'
 
 var navTabsStyle = {
@@ -28,7 +29,7 @@ var navLinkStyle = (state) => {
     }
 }
 
-const TabMenu = ({activeTab, switchTab, coins, estimates}) => {
+const TabMenu = ({activeTab, switchTab, coins, estimates, orderState, transactions, perCoin}) => {
   const contents = (props) => {
     if (estimates !== undefined) {
       return <ContentsList estimates={estimates} coins={coins} />
@@ -58,8 +59,8 @@ const TabMenu = ({activeTab, switchTab, coins, estimates}) => {
           </NavItem>
           <NavItem>
             <NavLink
-              style={navLinkStyle(activeTab === 'opened')}
-              onClick={(e) => (switchTab('opened'))}
+              style={navLinkStyle(activeTab === 'invoice')}
+              onClick={(e) => (switchTab('invoice'))}
             >
               Invoice
             </NavLink>
@@ -73,7 +74,7 @@ const TabMenu = ({activeTab, switchTab, coins, estimates}) => {
             {contents()}
           </TabPane>
           <TabPane tabId="invoice">
-            {contents()}
+            <Invoice orderState={orderState} perCoin={perCoin} transactions={transactions}/>
           </TabPane>
         </TabContent>
       </div>
@@ -81,6 +82,7 @@ const TabMenu = ({activeTab, switchTab, coins, estimates}) => {
 }
 
 TabMenu.propTypes = {
+  orderState: React.PropTypes.string,
   switchTab: React.PropTypes.func,
   activeTab: React.PropTypes.string
 }

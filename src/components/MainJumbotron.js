@@ -42,7 +42,7 @@ var heroTextStyle = {
 }
 
 
-const MainJumbotron = ({orderState, startOrder, activeTab, switchTab, estimates, coins}) => {
+const MainJumbotron = ({orderState, startOrder, activeTab, switchTab, estimates, coins, perCoin, transactions}) => {
   return (
     <Jumbotron style={jumbotronStyle} fluid>
       <Container fluid>
@@ -56,7 +56,15 @@ const MainJumbotron = ({orderState, startOrder, activeTab, switchTab, estimates,
         <Collapse isOpen={(orderState === OrderStates.preRequesting) ? false : true}>
           <Card style={cardStyle}>
             <CardBlock style={cardBlockStyle}>
-              <TabMenu activeTab={activeTab} switchTab={switchTab} coins={coins} estimates={estimates}/>
+              <TabMenu
+                orderState={orderState}
+                activeTab={activeTab}
+                switchTab={switchTab}
+                coins={coins}
+                estimates={estimates}
+                perCoin={perCoin}
+                transactions={transactions}
+              />
             </CardBlock>
           </Card>
         </Collapse>
@@ -69,7 +77,9 @@ const mapStateToProps = (state) => ({
   orderState: state.order.orderState,
   activeTab: state.order.activeTab,
   estimates: state.order.estimates,
-  coins: state.order.coins
+  coins: state.order.coins,
+  perCoin: state.order.perCoin,
+  transactions: state.order.transactions
 })
 
 const mapDispatchToProps = ({

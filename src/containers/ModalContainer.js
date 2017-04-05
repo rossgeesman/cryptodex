@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import * as actions from '../actions/index.js'
 import React from 'react';
-import { Modal, ModalHeader, ModalBody, Input, ListGroup, ListGroupItem } from 'reactstrap'
+import { Modal, ModalHeader, ModalBody, Input, ListGroup, ListGroupItem, Button } from 'reactstrap'
 import '../Modal.css'
 
 var addressStyle = {
@@ -9,12 +9,12 @@ var addressStyle = {
   minHeight: '275px',
   backgroundColor: 'white'
 }
-const AddressesModal = ({addresses, toggleModal, isOpen}) => {
+const AddressesModal = ({addresses, toggleModal, isOpen, acknowledgeAddr}) => {
   
   return (
     <div>
       <Modal isOpen={isOpen} toggle={toggleModal}>
-        <ModalHeader toggle={toggleModal}>Order Addresses</ModalHeader>
+        <ModalHeader toggle={acknowledgeAddr}>Order Addresses</ModalHeader>
         <ModalBody>
             <ListGroup>
               <ListGroupItem color="danger">
@@ -22,6 +22,7 @@ const AddressesModal = ({addresses, toggleModal, isOpen}) => {
               </ListGroupItem>
             </ListGroup>
             <Input style={addressStyle} type="textarea" readOnly={true} value={JSON.stringify(addresses, null, 2)}/>
+            <Button onClick={acknowledgeAddr}>Finish</Button>
         </ModalBody>
       </Modal>
     </div>
@@ -31,7 +32,7 @@ const AddressesModal = ({addresses, toggleModal, isOpen}) => {
 const ModalContainer = (props) => {
   switch (props.visibleModal) {
     case 'addressesModal':
-      return <AddressesModal isOpen={true} toggleModal={props.toggleModal} addresses={props.modalData} />
+      return <AddressesModal isOpen={true} toggleModal={props.toggleModal} addresses={props.modalData} acknowledgeAddr={props.acknowledgeAddr} />
     default:
       return null
   }
@@ -44,7 +45,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = ({
-  toggleModal: actions.toggleModal
+  toggleModal: actions.toggleModal,
+  acknowledgeAddr: actions.acknowledgeAddr
 })
 
 export default connect(
