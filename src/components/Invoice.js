@@ -1,7 +1,7 @@
 import React from 'react'
-import { Button, Card, CardHeader, CardTitle, CardBlock, CardFooter, CardText } from 'reactstrap'
+import { Card, CardHeader, CardTitle, CardBlock, CardFooter, CardText } from 'reactstrap'
+import TrezorPayButton from './TrezorPayButton'
 import OrderStates from '../lib/OrderStates'
-import { Link } from 'react-router-dom'
 
 var invoiceCardStyle = {
   margin: '10px'	
@@ -10,6 +10,7 @@ var invoiceCardStyle = {
 var invoiceContentStyle = {
   textAlign: 'left'
 }
+
 const Invoice = ({orderState, perCoin, transactions}) => {
   if (orderState === OrderStates.requestingPayment) {
     return (
@@ -21,11 +22,7 @@ const Invoice = ({orderState, perCoin, transactions}) => {
           <CardText>Per Coin Amount: {perCoin} Satoshis</CardText>
         </CardBlock>
         <CardFooter>
-          <Button>Pay with Trezor</Button>
-          <Button>
-            Bitcoin Wallet
-          </Button>
-          
+          <TrezorPayButton transactions={transactions} amount={perCoin}/>
         </CardFooter>
       </Card>
     )

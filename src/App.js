@@ -20,9 +20,6 @@ var brandStyle = {
   color: 'black'
 }
 
-var containerStyle = {
-  padding: '0px'
-}
 
 function App({children}) {
   return (
