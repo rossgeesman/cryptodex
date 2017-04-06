@@ -49,6 +49,7 @@ function validate(order) {
 
 
 const order = (state = initalState, action) => {
+  console.log(state)
   switch (action.type) {
     case 'START_ORDER':
       return update(state, {
@@ -77,13 +78,14 @@ const order = (state = initalState, action) => {
         coins: {$set: _.mapValues(state.coins, (c) => {
           return setAddress(c)
         })},
-        orderProgress: {$set: 0.1 }
+        returnAddress: {$set: payoutAddress.generate('BTC')},
+        orderProgress: {$set: 0.1}
       })
     case 'ADD_TXS':
       return update(state, {
         transactions: {$set: action.txs},
         orderState: {$set: OrderStates.opened},
-        orderProgress: {$set: 0.8 }
+        orderProgress: {$set: 0.8}
       })
     case 'ADD_AVAILABLE':
       return update(state, {

@@ -44,6 +44,7 @@ function coinkeyAddress(symbol) {
 }
 
 const supportedCoins = {
+  'BTC': coinkeyAddress,
   'BLK': coinkeyAddress,
   'DASH': coinkeyAddress,
   'DOGE': coinkeyAddress,

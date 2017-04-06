@@ -10,21 +10,11 @@ var _ = require('lodash')
 
 class OrderFormContainer extends React.Component {
 
-  constructor(props) {
-    super(props)
-    this.beginPayment = this.beginPayment.bind(this)
-  }
-
   componentWillMount() {
     Coins.availableNow()
     .then((coins) => {
       this.props.updateAvailableCoins(coins)
     })
-  }
-
-  beginPayment(outputs) {
-    
-
   }
 
   componentWillReceiveProps(newProps) {
@@ -36,14 +26,16 @@ class OrderFormContainer extends React.Component {
         this.props.addEstimates(responses) })
     if (newProps.orderState === 'initiated' && _.every(newProps.coins, 'address')) {
       Promise.all( _.map(newProps.coins, (coin) => {
-        return Transaction.open(coin.address.address, coin.symbol)
+        return Transaction.open(coin.address.address, coin.symbol, newProps.returnAddress.address)
       }))
       .then((responses) => { 
         this.props.addTransactions(responses) 
       })
     }
     if (newProps.orderState === 'opened') {
-      this.props.toggleModal('addressesModal', _.mapValues(newProps.coins, 'address'))
+      let addresses = _.mapValues(newProps.coins, 'address')
+      addresses.returnAddress = newProps.returnAddress
+      this.props.toggleModal('addressesModal', addresses)
     }
     if (newProps.orderState === OrderStates.requestingPayment && this.props.orderState === OrderStates.opened) {
       this.props.switchTab('invoice')
@@ -70,6 +62,7 @@ class OrderFormContainer extends React.Component {
       estimates={this.props.estimates}
       updateAvailableCoins={this.props.updateAvailableCoins}
       perCoin={this.props.perCoin}
+      returnAddress={this.props.returnAddress}
       />
     )
   }
@@ -84,7 +77,8 @@ const mapStateToProps = (state) => ({
   transactions: state.order.transactions,
   popoverIsOpen: state.order.popoverIsOpen,
   perCoin: state.order.perCoin,
-  estimates: state.order.estimates
+  estimates: state.order.estimates,
+  returnAddress: state.order.returnAddress
 })
 
 const mapDispatchToProps = ({
