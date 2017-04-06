@@ -23,8 +23,8 @@ const REQUEST_TYPE = {
 }
 
 
-function open(outputAddr, coin) {
-  let params = {withdrawal: outputAddr, pair: makePair(coin)}
+function open(outputAddr, coin, returnAddress) {
+  let params = {withdrawal: outputAddr, pair: makePair(coin), returnAddress: returnAddress}
   return makeRequest(REQUEST_TYPE.open, params)
 }
 
