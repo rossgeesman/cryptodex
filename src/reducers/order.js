@@ -49,7 +49,6 @@ function validate(order) {
 
 
 const order = (state = initalState, action) => {
-  console.log(state)
   switch (action.type) {
     case 'START_ORDER':
       return update(state, {
@@ -83,7 +82,9 @@ const order = (state = initalState, action) => {
       })
     case 'ADD_TXS':
       return update(state, {
-        transactions: {$set: action.txs},
+        transactions: {$set: _.map(action.txs,
+          (tx) => ( Object.assign({}, tx, {paid: false}))
+        )},
         orderState: {$set: OrderStates.opened},
         orderProgress: {$set: 0.8}
       })
