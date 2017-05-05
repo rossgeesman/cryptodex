@@ -32,7 +32,7 @@ var navLinkStyle = (state) => {
 const TabMenu = ({activeTab, switchTab, coins, estimates, orderState, transactions, perCoin}) => {
   const contents = (props) => {
     if (estimates !== undefined) {
-      return <ContentsList estimates={estimates} coins={coins} />
+      return <ContentsList estimates={estimates} coins={coins}/>
     } else {
       return <div style={{verticalAlign: 'middle'}}>Needs some BTC first.</div>
     }
@@ -74,7 +74,7 @@ const TabMenu = ({activeTab, switchTab, coins, estimates, orderState, transactio
             {contents()}
           </TabPane>
           <TabPane tabId="invoice">
-            <Invoice orderState={orderState} perCoin={perCoin} transactions={transactions}/>
+            <Invoice orderState={orderState} estimates={estimates} perCoin={perCoin} transactions={transactions}/>
           </TabPane>
         </TabContent>
       </div>
