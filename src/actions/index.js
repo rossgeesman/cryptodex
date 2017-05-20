@@ -64,3 +64,12 @@ export const toggleModal = (modal, modalData) => ({
 export const acknowledgeAddr = () => ({
   type: 'ADDRESS_RCVD'
 })
+
+export const startPayment = () => ({
+  type: 'START_PAYMENT'
+})
+
+export const markPaid = (addr) => ({
+  type: 'MARK_PAID',
+  coin: addr
+})

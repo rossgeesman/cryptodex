@@ -12,8 +12,8 @@ var invoiceContentStyle = {
   textAlign: 'left'
 }
 
-const Invoice = ({orderState, estimates, perCoin, transactions}) => {
-  if (orderState === OrderStates.requestingPayment) {
+const Invoice = ({orderState, estimates, perCoin, transactions, startPayment, markPaid}) => {
+  if (orderState === OrderStates.requestingPayment || orderState === OrderStates.paymentInitiated) {
     return (
       <Card style={invoiceCardStyle}>
         <CardHeader>Invoice</CardHeader>
@@ -24,7 +24,7 @@ const Invoice = ({orderState, estimates, perCoin, transactions}) => {
           <CardText>Per Coin Amount: {perCoin} Satoshis</CardText>
         </CardBlock>
         <CardFooter>
-          <TrezorPayButton transactions={transactions} amount={perCoin}/>
+          <TrezorPayButton orderState={orderState} startPayment={startPayment} markPaid={markPaid} transactions={transactions} perCoin={perCoin}/>
         </CardFooter>
       </Card>
     )

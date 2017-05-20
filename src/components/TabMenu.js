@@ -2,7 +2,7 @@ import React from 'react'
 import { TabContent, TabPane, Nav, NavItem, NavLink } from 'reactstrap'
 import OrderFormContainer from '../containers/OrderFormContainer'
 import ContentsList from './ContentsList'
-import Invoice from './Invoice'
+import InvoiceContainer from '../containers/InvoiceContainer'
 import Styles from '../styles'
 
 var navTabsStyle = {
@@ -74,7 +74,7 @@ const TabMenu = ({activeTab, switchTab, coins, estimates, orderState, transactio
             {contents()}
           </TabPane>
           <TabPane tabId="invoice">
-            <Invoice orderState={orderState} estimates={estimates} perCoin={perCoin} transactions={transactions}/>
+            <InvoiceContainer/>
           </TabPane>
         </TabContent>
       </div>

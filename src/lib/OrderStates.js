@@ -4,7 +4,8 @@ const OrderStates = {
   requested: 'requested', 
   initiated: 'initiated',
   opened: 'opened',
-  requestingPayment: 'requestingPayment', 
+  requestingPayment: 'requestingPayment',
+  paymentInitiated: 'paymentInitiated', 
   completed: 'completed'
 }
 export default OrderStates

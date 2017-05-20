@@ -11,11 +11,11 @@ function createOutputs(transactions, amount) {
   })
 }
 
-function createTrezorOutputs(addresses, amount) {
-  return addresses.map((address) => ({
+const trezorOutput = (address, amount) => {
+  return [{
     address: address,
     amount: amount
-  }))
+  }]
 }
 
 function generateTrezorRequest(outputs) {
@@ -24,12 +24,15 @@ function generateTrezorRequest(outputs) {
       TrezorConnect.pushTransaction(result.serialized_tx, (pushResult) => {
         if (pushResult.success) {
           console.log('Transaction pushed. Id:', pushResult.txid)
+          return pushResult
         } else {
           console.error('Error:', pushResult.error)
+          return pushResult
         }
       })
     } else {
     console.error('Error:', result.error)
+    return result
     }
   })
 }
@@ -51,7 +54,7 @@ function generateRequest(outputs) {
 
 const paymentRequest = {
   outputs: createOutputs,
-  trezorOutputs: createTrezorOutputs,
+  trezorOutput: trezorOutput,
   generate: generateRequest,
   generateTrezorRequest: generateTrezorRequest
 }

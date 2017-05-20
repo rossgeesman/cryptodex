@@ -24,6 +24,12 @@ function setAmts(amt, state) {
   })
 }
 
+function indexForTx(txs, addr) {
+  let toret = _.findIndex(txs, {deposit: addr })
+  console.log(toret)
+  return toret
+}
+
 function setAddress(coin) {
   return update((coin), { 
     $merge: {address: payoutAddress.generate(coin.symbol)}
@@ -117,6 +123,16 @@ const order = (state = initalState, action) => {
       return update(state, {
         orderState: {$set: OrderStates.requestingPayment},
         visibleModal: {$set: null}
+      })
+    case 'START_PAYMENT':
+      return update(state, {
+        orderState: {$set: OrderStates.paymentInitiated}
+      })
+    case 'MARK_PAID':
+      return update(state, {
+        transactions: {[indexForTx(state.transactions, action.addr)]: {
+          paid: {$set: true }
+        }}
       })
   	default:
   	  return state
