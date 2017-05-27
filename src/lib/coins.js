@@ -1,5 +1,6 @@
-var _ = require('lodash')
 import Transaction from './transaction'
+var _ = require('lodash')
+
 
 const coinList = {
   "BTC":{
@@ -288,6 +289,13 @@ function pairToSym(pair) {
   return pair.replace('btc_', '').toUpperCase()
 }
 
+function available() {
+  return _.pickBy(coinList, function(value) {
+    if (value.available === true)
+      return value
+  })
+}
+
 function availableNow() {
   return Transaction.getAvailable()
   .then((exchangeable) => {
@@ -298,6 +306,15 @@ function availableNow() {
   })
 }
 
+function currentlyAvailable() {
+  return Promise.all( _.map(available(), (coin) => {
+    return Transaction.price(coin.symbol)
+  })).then((result) => {
+    return _.reject(result, (res) => (res.hasOwnProperty('error')))
+  })
+}
+
+
 function asSatoshis(amt) {
   return Math.floor(amt * 100000000)
 }
@@ -307,12 +324,10 @@ function asBtc(amt) {
 }
 
 const Coins = {
-  available: _.pickBy(coinList, function(value) {
-    if (value.available === true)
-      return value
-  }),
+  available: available,
   all: coinList,
   availableNow: availableNow,
+  currentlyAvailable: currentlyAvailable,
   pairToSym: pairToSym,
   asSatoshis: asSatoshis,
   asBtc: asBtc

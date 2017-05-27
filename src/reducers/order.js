@@ -4,8 +4,7 @@ import payoutAddress from '../lib/payout_address'
 import OrderStates from '../lib/OrderStates'
 var _ = require('lodash')
 
-
-let initalState = {activeTab: 'purchase', coins: Coins.available, orderProgress: 0, popoverIsOpen: false, orderState: OrderStates.preRequesting, inputAmt: '', errors: []}
+let initalState = {activeTab: 'purchase', coins: Coins.availableNow(), orderProgress: 0, popoverIsOpen: false, orderState: OrderStates.preRequesting, inputAmt: '', errors: []}
 
 function setAmt(amt, coin) {
   return update(coin, {

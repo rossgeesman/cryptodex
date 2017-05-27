@@ -1,4 +1,4 @@
-const EXCHANGE_URL = "https://shapeshift.io"
+const EXCHANGE_URL = "https://cors.shapeshift.io"
 const POST = 'POST'
 const GET = 'GET'
 

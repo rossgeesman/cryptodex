@@ -11,6 +11,7 @@ class TrezorPayButton extends React.Component {
   componentWillReceiveProps(newProps) {
     if (newProps.orderState === OrderStates.paymentInitiated) {
       let currentTx = _.takeWhile(newProps.transactions, (tx) => (tx.paid === false))[0]  
+      console.log(currentTx)
       let txOutput = paymentRequest.trezorOutput(currentTx.deposit, newProps.perCoin)
       TrezorConnect.composeAndSignTx(txOutput, (result) => {
         if (result.success) {
