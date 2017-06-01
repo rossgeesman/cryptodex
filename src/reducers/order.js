@@ -25,7 +25,6 @@ function setAmts(amt, state) {
 
 function indexForTx(txs, addr) {
   let toret = _.findIndex(txs, {deposit: addr })
-  console.log(toret)
   return toret
 }
 
@@ -80,7 +79,10 @@ const order = (state = initalState, action) => {
       return update(state, {
         orderState: {$set: 'initiated'},
         coins: {$set: _.mapValues(state.coins, (c) => {
-          return setAddress(c)
+          if (c.available)
+            return setAddress(c)
+          else
+            return c
         })},
         returnAddress: {$set: payoutAddress.generate('BTC')},
         orderProgress: {$set: 0.1}
@@ -128,8 +130,9 @@ const order = (state = initalState, action) => {
         orderState: {$set: OrderStates.paymentInitiated}
       })
     case 'MARK_PAID':
+      console.log(action, indexForTx(state.transactions, action.coin))
       return update(state, {
-        transactions: {[indexForTx(state.transactions, action.addr)]: {
+        transactions: {[indexForTx(state.transactions, action.coin)]: {
           paid: {$set: true }
         }}
       })

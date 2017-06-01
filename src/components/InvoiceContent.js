@@ -11,14 +11,14 @@ var contentsDivStyle = {
   paddingRight: '16px'
 }
 
-function composeContent(estimates, transactions, perCoin) {
-  return _.map(transactions, (tx, index) => {
-      return <InvoiceItem key={tx.withdrawalType} item={tx.withdrawalType} amount={Coins.asBtc(estimates[index].rate) * perCoin} paid={tx.paid}/>
+function composeContent(coins, transactions, perCoin) {
+  return _.map(transactions, (tx) => {
+      return <InvoiceItem key={tx.withdrawalType} item={tx.withdrawalType} amount={Coins.asBtc(coins[tx.withdrawalType].rate) * perCoin} paid={tx.paid}/>
     }
   )
 }
 
-const InvoiceContent = ({transactions, estimates, perCoin}) => {
+const InvoiceContent = ({transactions, coins, perCoin}) => {
   return (
     <div style={contentsDivStyle}>
       <Table size="sm">
@@ -31,7 +31,7 @@ const InvoiceContent = ({transactions, estimates, perCoin}) => {
         </thead>
         <tbody>
           { 
-            composeContent(estimates, transactions, perCoin)
+            composeContent(coins, transactions, perCoin)
           }
         </tbody>
       </Table>
@@ -41,7 +41,7 @@ const InvoiceContent = ({transactions, estimates, perCoin}) => {
 
 InvoiceContent.propTypes = {
   perCoin: PropTypes.number.isRequired,
-  estimates: PropTypes.array.isRequired,
+  coins: PropTypes.object.isRequired,
   transactions: PropTypes.array.isRequired
 }
 

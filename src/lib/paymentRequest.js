@@ -14,7 +14,7 @@ function createOutputs(transactions, amount) {
 const trezorOutput = (address, amount) => {
   return [{
     address: address,
-    amount: amount
+    amount: parseInt(amount)
   }]
 }
 

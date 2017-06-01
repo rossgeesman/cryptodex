@@ -77,7 +77,8 @@ const Transaction = {
   openFixed: openFixed,
   getAvailable: getAvailable,
   getEstimate: getEstimate,
-  price: getPrice
+  price: getPrice,
+  makePair: makePair
 }
 
 export default Transaction

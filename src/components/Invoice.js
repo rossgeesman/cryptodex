@@ -12,14 +12,14 @@ var invoiceContentStyle = {
   textAlign: 'left'
 }
 
-const Invoice = ({orderState, estimates, perCoin, transactions, startPayment, markPaid}) => {
+const Invoice = ({orderState, coins, perCoin, transactions, startPayment, markPaid}) => {
   if (orderState === OrderStates.requestingPayment || orderState === OrderStates.paymentInitiated) {
     return (
       <Card style={invoiceCardStyle}>
         <CardHeader>Invoice</CardHeader>
         <CardBlock style={invoiceContentStyle}>
           <CardTitle>Order Details</CardTitle>
-          <InvoiceContent transactions={transactions} estimates={estimates} perCoin={perCoin}/>
+          <InvoiceContent transactions={transactions} coins={coins} perCoin={perCoin}/>
           <CardText>Total Amount: {perCoin * transactions.length} Satoshis</CardText>
           <CardText>Per Coin Amount: {perCoin} Satoshis</CardText>
         </CardBlock>

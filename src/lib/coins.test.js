@@ -14,25 +14,28 @@ describe('Coins', () => {
   })
 
   describe('.currentlyAvailable', () => {
-    it('it checks availability for each coin with the Transactions module', () => {
+    it('it should call Transaction.price', () => {
       let available = Coins.available()
       Coins.currentlyAvailable()
       expect(Transaction.price.mock.calls.length).toEqual(Object.keys(available).length)
     })
 
-    it('should not return responses with errors', () => {
-      Transaction.price.mockReturnValue({error: 'This pair not available'})
-      expect(Coins.currentlyAvailable()).resolves.toEqual([])
-    })
-
-    it('should return responses that have a rate', () => {
-      let response = {"pair": "btc_eth", "rate": 130.12345678, "limit": 1.2345, "min": 0.02621232, "minerFee": 0.0001}
-      Transaction.price.mockReturnValue(response)
-      Coins.currentlyAvailable()
-      .then((available) => {
-        expect(available).toContain(response)
+    it('should return pricing info for each coin', () => {
+      let expected = {name: 'Blackcoin', available: true, amt: 0, checked: true, symbol: 'BLK', "limit": 1.2345, "min": 0.02621232, "minerFee": 0.0001, "pair": "btc_blk", "rate": 130.12345678}
+      return Coins.currentlyAvailable()
+      .then((result) => {
+        expect(result['BLK']).toEqual(expected)
       })
     })
+
+    it('should not return responses with errors', () => {
+      Transaction.price.mockImplementation(() => ( Promise.resolve({error: 'generic error message'})))
+      return Coins.currentlyAvailable()
+      .then((result) => {
+        expect(result['BLK'].available).toEqual(false)
+      })
+    })
+
   })
   
 })
