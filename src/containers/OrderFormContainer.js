@@ -11,25 +11,19 @@ var _ = require('lodash')
 class OrderFormContainer extends React.Component {
 
   componentWillMount() {
-    Coins.availableNow()
+    Coins.currentlyAvailable()
     .then((coins) => {
       this.props.updateAvailableCoins(coins)
     })
   }
 
   componentWillReceiveProps(newProps) {
-    if (newProps.value !== this.props.value && newProps.value !== 0)
-      Promise.all( _.map(newProps.coins, (coin) => {
-        return Transaction.price(coin.symbol)
-      }))
-      .then((responses) => { 
-        this.props.addEstimates(responses) })
-    if (newProps.orderState === 'initiated' && _.every(newProps.coins, 'address')) {
-      Promise.all( _.map(newProps.coins, (coin) => {
+    if (newProps.orderState === 'initiated' && _.filter(newProps.coins, 'address').length > 0) {
+      Promise.all( _.map(_.filter(newProps.coins, 'address'), (coin) => {
         return Transaction.open(coin.address.address, coin.symbol, newProps.returnAddress.address)
       }))
       .then((responses) => { 
-        this.props.addTransactions(responses) 
+        this.props.addTransactions(responses)
       })
     }
     if (newProps.orderState === 'opened') {

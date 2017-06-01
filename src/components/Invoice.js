@@ -1,6 +1,7 @@
 import React from 'react'
 import { Card, CardHeader, CardTitle, CardBlock, CardFooter, CardText } from 'reactstrap'
 import TrezorPayButton from './TrezorPayButton'
+import InvoiceContent from './InvoiceContent'
 import OrderStates from '../lib/OrderStates'
 
 var invoiceCardStyle = {
@@ -11,18 +12,19 @@ var invoiceContentStyle = {
   textAlign: 'left'
 }
 
-const Invoice = ({orderState, perCoin, transactions}) => {
-  if (orderState === OrderStates.requestingPayment) {
+const Invoice = ({orderState, coins, perCoin, transactions, startPayment, markPaid}) => {
+  if (orderState === OrderStates.requestingPayment || orderState === OrderStates.paymentInitiated) {
     return (
       <Card style={invoiceCardStyle}>
         <CardHeader>Invoice</CardHeader>
         <CardBlock style={invoiceContentStyle}>
           <CardTitle>Order Details</CardTitle>
+          <InvoiceContent transactions={transactions} coins={coins} perCoin={perCoin}/>
           <CardText>Total Amount: {perCoin * transactions.length} Satoshis</CardText>
           <CardText>Per Coin Amount: {perCoin} Satoshis</CardText>
         </CardBlock>
         <CardFooter>
-          <TrezorPayButton transactions={transactions} amount={perCoin}/>
+          <TrezorPayButton orderState={orderState} startPayment={startPayment} markPaid={markPaid} transactions={transactions} perCoin={perCoin}/>
         </CardFooter>
       </Card>
     )

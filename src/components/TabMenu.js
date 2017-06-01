@@ -1,8 +1,7 @@
 import React from 'react'
 import { TabContent, TabPane, Nav, NavItem, NavLink } from 'reactstrap'
 import OrderFormContainer from '../containers/OrderFormContainer'
-import ContentsList from './ContentsList'
-import Invoice from './Invoice'
+import InvoiceContainer from '../containers/InvoiceContainer'
 import Styles from '../styles'
 
 var navTabsStyle = {
@@ -30,14 +29,6 @@ var navLinkStyle = (state) => {
 }
 
 const TabMenu = ({activeTab, switchTab, coins, estimates, orderState, transactions, perCoin}) => {
-  const contents = (props) => {
-    if (estimates !== undefined) {
-      return <ContentsList estimates={estimates} coins={coins} />
-    } else {
-      return <div style={{verticalAlign: 'middle'}}>Needs some BTC first.</div>
-    }
-  }
-
    return (
       <div>
         <Nav style={navTabsStyle} tabs>
@@ -47,14 +38,6 @@ const TabMenu = ({activeTab, switchTab, coins, estimates, orderState, transactio
               onClick={(e) => (switchTab('purchase'))}
             >
               Order
-            </NavLink>
-          </NavItem>
-          <NavItem>
-            <NavLink
-              style={navLinkStyle(activeTab === 'contents')}
-              onClick={(e) => (switchTab('contents'))}
-            >
-              Contents
             </NavLink>
           </NavItem>
           <NavItem>
@@ -70,11 +53,8 @@ const TabMenu = ({activeTab, switchTab, coins, estimates, orderState, transactio
           <TabPane tabId='purchase'>
             <OrderFormContainer/>
           </TabPane>
-          <TabPane tabId="contents">
-            {contents()}
-          </TabPane>
           <TabPane tabId="invoice">
-            <Invoice orderState={orderState} perCoin={perCoin} transactions={transactions}/>
+            <InvoiceContainer/>
           </TabPane>
         </TabContent>
       </div>

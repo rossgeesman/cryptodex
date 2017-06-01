@@ -1,5 +1,6 @@
-var _ = require('lodash')
 import Transaction from './transaction'
+var _ = require('lodash')
+
 
 const coinList = {
   "BTC":{
@@ -288,12 +289,39 @@ function pairToSym(pair) {
   return pair.replace('btc_', '').toUpperCase()
 }
 
+function makePair(symbol) {
+  return 'btc_' + symbol.toLowerCase()
+}
+
+function available() {
+  return _.pickBy(coinList, function(value) {
+    if (value.available === true)
+      return value
+  })
+}
+
 function availableNow() {
   return Transaction.getAvailable()
   .then((exchangeable) => {
     return _.pickBy(coinList, function(value, key) {
       if (value.available === true && exchangeable[key].status === 'available')
         return value
+    })
+  })
+}
+
+function currentlyAvailable() {
+  return Promise.all( _.map(available(), (coin) => {
+    return Transaction.price(coin.symbol).then((res) => ({symbol: coin.symbol, ...res }))
+  }))
+  .then((availableCoins) => {
+    return _.mapValues(available(), (av) => {
+      let priceInfo = _.find(availableCoins, (c) => (c.symbol === av.symbol))
+      return {
+        ...av,
+        ...priceInfo.hasOwnProperty('error') && {available: false},
+        ...priceInfo.hasOwnProperty('rate') && priceInfo
+      }
     })
   })
 }
@@ -307,12 +335,10 @@ function asBtc(amt) {
 }
 
 const Coins = {
-  available: _.pickBy(coinList, function(value) {
-    if (value.available === true)
-      return value
-  }),
+  available: available,
   all: coinList,
   availableNow: availableNow,
+  currentlyAvailable: currentlyAvailable,
   pairToSym: pairToSym,
   asSatoshis: asSatoshis,
   asBtc: asBtc

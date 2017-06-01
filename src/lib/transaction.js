@@ -1,4 +1,4 @@
-const EXCHANGE_URL = "https://shapeshift.io"
+const EXCHANGE_URL = "https://cors.shapeshift.io"
 const POST = 'POST'
 const GET = 'GET'
 
@@ -77,7 +77,8 @@ const Transaction = {
   openFixed: openFixed,
   getAvailable: getAvailable,
   getEstimate: getEstimate,
-  price: getPrice
+  price: getPrice,
+  makePair: makePair
 }
 
 export default Transaction

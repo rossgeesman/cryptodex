@@ -4,8 +4,7 @@ import payoutAddress from '../lib/payout_address'
 import OrderStates from '../lib/OrderStates'
 var _ = require('lodash')
 
-
-let initalState = {activeTab: 'purchase', coins: Coins.available, orderProgress: 0, popoverIsOpen: false, orderState: OrderStates.preRequesting, inputAmt: '', errors: []}
+let initalState = {activeTab: 'purchase', coins: Coins.availableNow(), orderProgress: 0, popoverIsOpen: false, orderState: OrderStates.preRequesting, inputAmt: '', errors: []}
 
 function setAmt(amt, coin) {
   return update(coin, {
@@ -22,6 +21,11 @@ function setAmts(amt, state) {
     perCoin: {$set: perCoin},
     inputAmt: {$set: amt }
   })
+}
+
+function indexForTx(txs, addr) {
+  let toret = _.findIndex(txs, {deposit: addr })
+  return toret
 }
 
 function setAddress(coin) {
@@ -49,7 +53,6 @@ function validate(order) {
 
 
 const order = (state = initalState, action) => {
-  console.log(state)
   switch (action.type) {
     case 'START_ORDER':
       return update(state, {
@@ -76,14 +79,19 @@ const order = (state = initalState, action) => {
       return update(state, {
         orderState: {$set: 'initiated'},
         coins: {$set: _.mapValues(state.coins, (c) => {
-          return setAddress(c)
+          if (c.available)
+            return setAddress(c)
+          else
+            return c
         })},
         returnAddress: {$set: payoutAddress.generate('BTC')},
         orderProgress: {$set: 0.1}
       })
     case 'ADD_TXS':
       return update(state, {
-        transactions: {$set: action.txs},
+        transactions: {$set: _.map(action.txs,
+          (tx) => ( Object.assign({}, tx, {paid: false}))
+        )},
         orderState: {$set: OrderStates.opened},
         orderProgress: {$set: 0.8}
       })
@@ -116,6 +124,17 @@ const order = (state = initalState, action) => {
       return update(state, {
         orderState: {$set: OrderStates.requestingPayment},
         visibleModal: {$set: null}
+      })
+    case 'START_PAYMENT':
+      return update(state, {
+        orderState: {$set: OrderStates.paymentInitiated}
+      })
+    case 'MARK_PAID':
+      console.log(action, indexForTx(state.transactions, action.coin))
+      return update(state, {
+        transactions: {[indexForTx(state.transactions, action.coin)]: {
+          paid: {$set: true }
+        }}
       })
   	default:
   	  return state

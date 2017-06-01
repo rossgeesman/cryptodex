@@ -6,7 +6,7 @@ var _ = require('lodash')
 
 var contentsDivStyle = {
   overflow: 'auto', 
-  maxHeight: '300px', 
+  maxHeight: '300px',
   paddingLeft: '16px', 
   paddingRight: '16px'
 }
