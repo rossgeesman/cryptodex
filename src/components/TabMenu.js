@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { TabContent, TabPane, Nav, NavItem, NavLink } from 'reactstrap'
 import OrderFormContainer from '../containers/OrderFormContainer'
 import InvoiceContainer from '../containers/InvoiceContainer'
@@ -62,9 +63,9 @@ const TabMenu = ({activeTab, switchTab, coins, estimates, orderState, transactio
 }
 
 TabMenu.propTypes = {
-  orderState: React.PropTypes.string,
-  switchTab: React.PropTypes.func,
-  activeTab: React.PropTypes.string
+  orderState: PropTypes.string,
+  switchTab: PropTypes.func,
+  activeTab: PropTypes.string
 }
 
 export default TabMenu

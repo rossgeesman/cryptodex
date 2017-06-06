@@ -1,8 +1,10 @@
 import React from 'react'
 import { Card, CardHeader, CardTitle, CardBlock, CardFooter, CardText } from 'reactstrap'
+import ContentsList from './ContentsList'
 import TrezorPayButton from './TrezorPayButton'
 import InvoiceContent from './InvoiceContent'
 import OrderStates from '../lib/OrderStates'
+import Coins from '../lib/coins'
 
 var invoiceCardStyle = {
   margin: '10px'	
@@ -34,7 +36,7 @@ const Invoice = ({orderState, coins, perCoin, transactions, startPayment, markPa
         <CardHeader>Invoice</CardHeader>
         <CardBlock>
           <CardTitle>Order Details</CardTitle>
-          <CardText>No current invoice. Start an order first.</CardText>  
+          <ContentsList coins={Coins.filterAvailable(coins)}/>
         </CardBlock>
       </Card> 
   	)

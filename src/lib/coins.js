@@ -289,12 +289,12 @@ function pairToSym(pair) {
   return pair.replace('btc_', '').toUpperCase()
 }
 
-function makePair(symbol) {
-  return 'btc_' + symbol.toLowerCase()
+function available() {
+  return filterAvailable(coinList)
 }
 
-function available() {
-  return _.pickBy(coinList, function(value) {
+function filterAvailable(coins) {
+  return _.pickBy(coins, function(value) {
     if (value.available === true)
       return value
   })
@@ -336,6 +336,7 @@ function asBtc(amt) {
 
 const Coins = {
   available: available,
+  filterAvailable: filterAvailable,
   all: coinList,
   availableNow: availableNow,
   currentlyAvailable: currentlyAvailable,

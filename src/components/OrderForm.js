@@ -1,11 +1,12 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import InputCoin from './InputCoin'
 import { Form, Button, Row, Col, FormText } from 'reactstrap'
 import Styles from '../styles'
 
 const ProgressBar = require('react-progressbar.js')
 const Circle = ProgressBar.Circle
-var _ = require('lodash')
+
 var containerStyle = {
   paddingTop: '7px',
   minWidth: '220px',
