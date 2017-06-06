@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import { Table } from 'reactstrap'
 import InvoiceItem from './InvoiceItem'
 import Coins from '../lib/coins'
@@ -13,7 +14,7 @@ var contentsDivStyle = {
 
 function composeContent(coins, transactions, perCoin) {
   return _.map(transactions, (tx) => {
-      return <InvoiceItem key={tx.withdrawalType} item={tx.withdrawalType} amount={Coins.asBtc(coins[tx.withdrawalType].rate) * perCoin} paid={tx.paid}/>
+      return <InvoiceItem key={tx.withdrawalType} item={tx.withdrawalType} amount={Coins.asBtc(coins[tx.withdrawalType].rate) * perCoin} paid={tx.paid} txId={tx.orderId}/>
     }
   )
 }

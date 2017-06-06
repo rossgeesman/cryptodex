@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Input, FormGroup, InputGroupAddon, InputGroup } from 'reactstrap'
 import Styles from '../styles'
 
@@ -34,8 +35,8 @@ const InputCoin = ({updateInputAmt, value}) => (
 )
 
 InputCoin.propTypes = {
-  updateInputAmt: React.PropTypes.func,
-  value: React.PropTypes.string
+  updateInputAmt: PropTypes.func,
+  value: PropTypes.string
 }
 
 export default InputCoin

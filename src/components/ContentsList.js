@@ -1,7 +1,7 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import { Table } from 'reactstrap'
 import LineItem from './LineItem'
-import Coins from '../lib/coins'
 var _ = require('lodash')
 
 var contentsDivStyle = {
@@ -11,17 +11,7 @@ var contentsDivStyle = {
   paddingRight: '16px'
 }
 
-function composeContent(coins, estimates) {
-  return estimates.map((est) => {
-    let coin_sym = Coins.pairToSym(est.pair)
-    return { 
-      name: `${coins[coin_sym].name} (${coin_sym})`,
-      amount: (Coins.asBtc(coins[coin_sym].amt) * est.rate).toFixed(2)
-    }
-  })
-}
-
-const ContentsList = ({coins, estimates}) => {
+const ContentsList = ({coins}) => {
   return (
     <div style={contentsDivStyle}>
       <Table size="sm">
@@ -33,9 +23,7 @@ const ContentsList = ({coins, estimates}) => {
         </thead>
         <tbody>
           {
-            composeContent(coins, estimates).map((coin) => {
-              return <LineItem key={coin.name} coin={coin}/>
-            }) 
+            _.map(coins, (coin) => (<LineItem key={coin.name} coin={coin}/> ))
           }
         </tbody>
       </Table>
@@ -44,8 +32,7 @@ const ContentsList = ({coins, estimates}) => {
 }
 
 ContentsList.propTypes = {
-  coins: PropTypes.object.isRequired,
-  estimates: PropTypes.array.isRequired
+  coins: PropTypes.object.isRequired
 }
 
 export default ContentsList

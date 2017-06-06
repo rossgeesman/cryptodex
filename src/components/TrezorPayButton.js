@@ -1,5 +1,6 @@
 /*global TrezorConnect*/
-import React, { PropTypes } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import { Button } from 'reactstrap'
 import OrderStates from '../lib/OrderStates'
 import paymentRequest from '../lib/paymentRequest'
@@ -44,7 +45,7 @@ class TrezorPayButton extends React.Component {
   render() {
     return (
       <Button onClick={this.props.startPayment}>
-        Pay with Trezor
+        <img src='trezor.png' height="22" width="22" /> Pay with Trezor
       </Button>
     )
   }
@@ -55,7 +56,6 @@ TrezorPayButton.propTypes = {
   startPayment: PropTypes.func.isRequired,
   orderState: PropTypes.string.isRequired,
   perCoin: PropTypes.number.isRequired,
-  startPayment: PropTypes.func.isRequired,
   markPaid: PropTypes.func.isRequired
 }
 

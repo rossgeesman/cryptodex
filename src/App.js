@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import FlashContainer from './containers/FlashContainer'
 import ModalContainer from './containers/ModalContainer'
 import MainJumbotron from './components/MainJumbotron'
@@ -37,7 +38,7 @@ function App({children}) {
 }
 
 App.propTypes = {
-  children: React.PropTypes.element
+  children: PropTypes.element
 }
 
 export default App
